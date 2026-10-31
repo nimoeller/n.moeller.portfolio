@@ -10,9 +10,6 @@
         <path d="M856 274 L1848 274 L1848 1188 L856 1188 L856 274 Z"/>
       </clipPath>
     </defs>
-    <g fill="white" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="translate(-856,-274)" stroke="white">
-      <rect x="856" width="992" height="914" y="274" clip-path="url(#clipPath2)" stroke="none"/>
-    </g>
     <g fill="rgb(255,102,102)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,102,102)">
       <rect x="871" width="259" height="43" y="604" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
@@ -102,51 +99,51 @@
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="977.0215" xml:space="preserve" y="995.0352" clip-path="url(#clipPath2)" stroke="none">Ofrenda</text>
     </g>
-    <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,204,0)">
+    <g fill="rgb(204,204,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,204,255)">
       <rect x="1219" y="544" clip-path="url(#clipPath2)" width="259" rx="4" ry="4" height="30" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1266.4043" xml:space="preserve" y="563.5352" clip-path="url(#clipPath2)" stroke="none">Cab returns to Delamain HQ</text>
     </g>
-    <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,204,0)">
+    <g fill="rgb(204,204,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,204,255)">
       <rect x="1219" width="259" height="43" y="604" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1269.627" xml:space="preserve" y="622.9688" clip-path="url(#clipPath2)" stroke="none">Jackie is processed without</text>
       <text x="1291.084" xml:space="preserve" y="637.1016" clip-path="url(#clipPath2)" stroke="none">a family destination</text>
     </g>
-    <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,204,0)">
+    <g fill="rgb(204,204,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,204,255)">
       <rect x="1219" width="259" height="43" y="677" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1245.3193" xml:space="preserve" y="703.0352" clip-path="url(#clipPath2)" stroke="none">Mama Wells calls "Where is my son"</text>
     </g>
-    <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,204,0)">
+    <g fill="rgb(204,204,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,204,255)">
       <rect x="1219" width="259" height="43" y="750" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
-      <text x="1292.0391" xml:space="preserve" y="776.0352" clip-path="url(#clipPath2)" stroke="none">Short Heroes Quest</text>
+      <text x="1254.2988" xml:space="preserve" y="776.0352" clip-path="url(#clipPath2)" stroke="none">V’s decision is causing him grief</text>
     </g>
-    <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,204,0)">
+    <g fill="rgb(204,204,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,204,255)">
       <circle r="43.5" clip-path="url(#clipPath2)" cx="1278.5" cy="866.5" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1266.3213" xml:space="preserve" y="871.0352" clip-path="url(#clipPath2)" stroke="none">END</text>
     </g>
-    <g fill="rgb(255,255,51)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,255,51)">
+    <g fill="rgb(204,153,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,153,255)">
       <rect x="1219" width="259" height="43" y="940" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1218.7002" xml:space="preserve" y="958.9688" clip-path="url(#clipPath2)" stroke="none">Find dried blood in cab duringthe Sidequest </text>
       <text x="1275.29" xml:space="preserve" y="973.1016" clip-path="url(#clipPath2)" stroke="none">DON'T LOSE YOUR MIND"</text>
     </g>
-    <g fill="rgb(255,255,51)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,255,51)">
+    <g fill="rgb(204,153,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,153,255)">
       <rect x="1219" width="259" height="43" y="1013" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
       <text x="1261.4414" xml:space="preserve" y="1039.0352" clip-path="url(#clipPath2)" stroke="none">Return an Item to Mama Wells</text>
     </g>
-    <g fill="rgb(255,255,51)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(255,255,51)">
+    <g fill="rgb(204,153,255)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-856,-274)" stroke="rgb(204,153,255)">
       <circle r="43.5" clip-path="url(#clipPath2)" cx="1348.5" cy="1129.5" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-856,-274)" stroke-linecap="butt">
