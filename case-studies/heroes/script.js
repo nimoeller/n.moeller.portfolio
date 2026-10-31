@@ -14,6 +14,7 @@ const observer = new IntersectionObserver(
 
 revealItems.forEach(item => observer.observe(item));
 
+// Show clean placeholders instead of broken-image icons until screenshots/flowcharts are added.
 document.querySelectorAll('.media-frame img').forEach(img => {
   const frame = img.closest('.media-frame');
 
