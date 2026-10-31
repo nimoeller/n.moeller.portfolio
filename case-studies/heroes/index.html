@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A visual quest deconstruction of Cyberpunk 2077: Heroes — structure, environmental storytelling, player agency, pacing and a third-branch design exploration." />
+  <title>Heroes — Quest Deconstruction | Niklas Möller</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../index.html">← Back to Portfolio</a>
+    <span class="eyebrow">Quest Design Case Study</span>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero section-shell reveal" id="top">
+      <div class="hero-copy">
+        <p class="kicker">Cyberpunk 2077</p>
+        <h1>Heroes</h1>
+        <p class="hero-subtitle">Quest Deconstruction</p>
+        <p class="hero-lede">How a quiet side quest uses inherited states, environmental storytelling and expressive choice to make grief playable.</p>
+        <div class="tag-row">
+          <span>Quest Structure</span>
+          <span>Player Agency</span>
+          <span>Pacing</span>
+          <span>Redesign</span>
+        </div>
+      </div>
+
+      <figure class="media-frame hero-media" data-fallback="Add assets/images/heroes-hero.jpg">
+        <img src="assets/images/heroes-hero.jpg" alt="Cyberpunk 2077 Heroes quest" />
+      </figure>
+    </section>
+
+    <!-- AT A GLANCE -->
+    <section class="quick-overview section-shell reveal">
+      <div>
+        <p class="section-number">01</p>
+        <h2>At a Glance</h2>
+      </div>
+      <div class="overview-grid">
+        <div><span>Type</span><strong>Character-driven Side Job</strong></div>
+        <div><span>Core Experience</span><strong>Grief &amp; remembrance</strong></div>
+        <div><span>Primary Tools</span><strong>Dialogue, exploration, world states</strong></div>
+        <div><span>Design Focus</span><strong>Meaning without combat</strong></div>
+      </div>
+    </section>
+
+    <!-- STRUCTURE -->
+    <section class="section-shell reveal" id="structure">
+      <div class="section-heading">
+        <p class="section-number">02</p>
+        <div>
+          <h2>Quest Structure</h2>
+          <p>The quest’s largest structural branch is inherited from <em>The Heist</em>, giving an earlier decision consequences beyond its original scene.</p>
+        </div>
+      </div>
+
+      <figure class="media-frame flowchart-frame" data-fallback="Add assets/images/heroes-quest-flow.svg">
+        <img src="assets/images/heroes-quest-flow.svg" alt="Heroes quest structure flowchart" />
+      </figure>
+
+      <aside class="callout">
+        <span class="callout-label">Key Observation</span>
+        <p><strong>The strongest branch is not created inside Heroes.</strong> The quest reads an earlier world state and changes the content available to the player.</p>
+      </aside>
+    </section>
+
+    <!-- STORYTELLING -->
+    <section class="section-shell reveal" id="storytelling">
+      <div class="section-heading">
+        <p class="section-number">03</p>
+        <div>
+          <h2>Making Jackie Playable</h2>
+          <p>The garage turns character exposition into exploration. Jackie is reconstructed through his belongings, his space and the people who knew him.</p>
+        </div>
+      </div>
+
+      <div class="story-grid">
+        <figure class="media-frame annotated-media" data-fallback="Add assets/images/heroes-garage.jpg">
+          <img src="assets/images/heroes-garage.jpg" alt="Jackie's garage" />
+          <span class="marker marker-one">1</span>
+          <span class="marker marker-two">2</span>
+          <span class="marker marker-three">3</span>
+        </figure>
+
+        <div class="story-notes">
+          <article><span>1</span><div><strong>Objects</strong><p>Personal history becomes something the player can inspect.</p></div></article>
+          <article><span>2</span><div><strong>Misty</strong><p>Conversation turns objects into shared memories.</p></div></article>
+          <article><span>3</span><div><strong>Space</strong><p>The environment communicates personality without exposition.</p></div></article>
+        </div>
+      </div>
+
+      <figure class="media-frame wide-caption-media" data-fallback="Add assets/images/heroes-misty.jpg">
+        <img src="assets/images/heroes-misty.jpg" alt="Misty during Heroes" />
+        <figcaption><span>Design Pattern</span><strong>Object → Personal detail → Character context → Emotional meaning</strong></figcaption>
+      </figure>
+    </section>
+
+    <!-- CHOICE -->
+    <section class="section-shell reveal" id="choice">
+      <div class="section-heading">
+        <p class="section-number">04</p>
+        <div>
+          <h2>Player Agency</h2>
+          <p><strong>Not every meaningful choice needs a different ending.</strong> Heroes mixes structural, expressive and social agency.</p>
+        </div>
+      </div>
+
+      <div class="choice-with-image">
+        <figure class="media-frame choice-media" data-fallback="Add assets/images/heroes-offering.jpg">
+          <img src="assets/images/heroes-offering.jpg" alt="Choosing Jackie's ofrenda offering" />
+        </figure>
+
+        <div class="choice-grid">
+          <article class="choice-card"><span class="choice-type">Structural</span><h3>Destination</h3><p>Changes which version of the quest becomes available.</p></article>
+          <article class="choice-card"><span class="choice-type">Expressive</span><h3>Offering</h3><p>Lets the player decide what part of Jackie they want to remember.</p></article>
+          <article class="choice-card"><span class="choice-type">Social</span><h3>Misty</h3><p>Changes emotional context without requiring another full branch.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACING -->
+    <section class="section-shell reveal" id="pacing">
+      <div class="section-heading">
+        <p class="section-number">05</p>
+        <div>
+          <h2>Pacing &amp; Payoff</h2>
+          <p>After the intensity of <em>The Heist</em>, Heroes deliberately removes pressure and gives the player room to process what happened.</p>
+        </div>
+      </div>
+
+      <div class="pacing-visual">
+        <div class="pacing-row heist-row"><span>The Heist</span><div class="bar"><i style="--fill:96%"></i></div><b>High intensity</b></div>
+        <div class="pacing-row"><span>Contact</span><div class="bar"><i style="--fill:20%"></i></div></div>
+        <div class="pacing-row"><span>Garage</span><div class="bar"><i style="--fill:42%"></i></div></div>
+        <div class="pacing-row"><span>Conversation</span><div class="bar"><i style="--fill:32%"></i></div></div>
+        <div class="pacing-row"><span>Ofrenda</span><div class="bar"><i style="--fill:58%"></i></div></div>
+        <div class="pacing-row"><span>Reflection</span><div class="bar"><i style="--fill:24%"></i></div></div>
+      </div>
+
+      <figure class="media-frame payoff-media" data-fallback="Add assets/images/heroes-ofrenda.jpg">
+        <img src="assets/images/heroes-ofrenda.jpg" alt="Jackie's ofrenda" />
+        <figcaption><span>Emotional Payoff</span><strong>The quest turns private exploration into communal remembrance.</strong></figcaption>
+      </figure>
+    </section>
+
+    <!-- REDESIGN -->
+    <section class="section-shell redesign-section reveal" id="redesign">
+      <div class="section-heading redesign-heading">
+        <p class="section-number">06</p>
+        <div>
+          <p class="kicker">Design Exploration</p>
+          <h2>Turning Inaction Into Consequence</h2>
+          <p>The Heist presents three responses for Jackie’s body — but “Nowhere. Wait for me here.” ultimately collapses into the family route. I would turn that apparent choice into a genuine third branch.</p>
+        </div>
+      </div>
+
+      <div class="redesign-question">
+        <span>Design Question</span>
+        <strong>What if postponing the decision became a meaningful decision in itself?</strong>
+      </div>
+
+      <figure class="media-frame flowchart-frame compact-flowchart" data-fallback="Create in yEd: assets/images/heroes-choice-collapse.svg">
+        <img src="assets/images/heroes-choice-collapse.svg" alt="Original three choices collapsing into two quest outcomes" />
+      </figure>
+
+      <div class="branch-principles">
+        <article><span>Family</span><strong>V acts.</strong><p>Jackie returns to his community.</p></article>
+        <article><span>Viktor</span><strong>V delegates.</strong><p>A larger system takes control.</p></article>
+        <article class="highlight"><span>Nowhere</span><strong>V postpones.</strong><p>V intends to come back. V never gets the chance.</p></article>
+      </div>
+
+      <figure class="media-frame flowchart-frame redesign-flowchart" data-fallback="Create in yEd: assets/images/heroes-nowhere-branch.svg">
+        <img src="assets/images/heroes-nowhere-branch.svg" alt="Proposed Nowhere branch for Heroes" />
+      </figure>
+
+      <div class="beat-grid">
+        <article>
+          <span class="beat-number">01</span>
+          <h3>Immediate Consequence</h3>
+          <p>Mama Welles calls V — not to invite them to an Ofrenda, but to ask where her son is.</p>
+          <blockquote>“You knew where his home was.”</blockquote>
+        </article>
+        <article>
+          <span class="beat-number">02</span>
+          <h3>Delayed Payoff</h3>
+          <p>During <em>Don't Lose Your Mind</em>, an optional Delamain cab reveals dried blood and a service record: <strong>Konpeki Plaza. Destination: None.</strong></p>
+        </article>
+        <article>
+          <span class="beat-number">03</span>
+          <h3>Resolution</h3>
+          <p>V can recover one recognizable item and return it to Mama Welles. There is no replacement Ofrenda — only a smaller, personal act of responsibility.</p>
+        </article>
+      </div>
+
+      <div class="production-strip">
+        <span>Production-aware scope</span>
+        <div><strong>Existing location</strong><small>Delamain HQ</small></div>
+        <div><strong>Existing character</strong><small>Mama Welles</small></div>
+        <div><strong>New content</strong><small>Quest states, VO, prop + terminal entry</small></div>
+      </div>
+
+      <blockquote class="redesign-statement">
+        <span>Core Design Statement</span>
+        The branch does not punish the player for choosing the wrong destination. <strong>It gives narrative consequence to choosing no destination at all.</strong>
+      </blockquote>
+    </section>
+
+    <!-- TAKEAWAY -->
+    <section class="takeaway reveal" id="takeaway">
+      <p class="section-number">07</p>
+      <h2>Design Takeaway</h2>
+      <div class="equation">
+        <span>World State</span><b>+</b><span>Environmental Storytelling</span><b>+</b><span>Expressive Choice</span><b>+</b><span>Consequence</span><b>=</b><strong>Emotional Quest Design</strong>
+      </div>
+      <blockquote>
+        “Wait for me.”<br />
+        <strong>The tragedy is that Jackie did — and V never came back.</strong>
+      </blockquote>
+      <a class="back-to-top" href="#top">Back to top ↑</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Quest deconstruction and speculative redesign for portfolio purposes. Cyberpunk 2077 and related imagery are property of CD PROJEKT RED.</p>
+  </footer>
+</body>
+</html>
