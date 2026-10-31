@@ -130,15 +130,111 @@
         </div>
       </div>
 
-      <div class="pacing-visual">
-        <div class="pacing-row heist-row"><span>The Heist</span><div class="bar"><i style="--fill:96%"></i></div><b>High intensity</b></div>
-        <div class="pacing-row"><span>Contact</span><div class="bar"><i style="--fill:20%"></i></div></div>
-        <div class="pacing-row"><span>Garage</span><div class="bar"><i style="--fill:42%"></i></div></div>
-        <div class="pacing-row"><span>Conversation</span><div class="bar"><i style="--fill:32%"></i></div></div>
-        <div class="pacing-row"><span>Ofrenda</span><div class="bar"><i style="--fill:58%"></i></div></div>
-        <div class="pacing-row"><span>Reflection</span><div class="bar"><i style="--fill:24%"></i></div></div>
-      </div>
+      <div class="pacing-visual pacing-graph-wrap">
+        <div class="graph-intro">
+          <p><strong>What this graph tracks:</strong> qualitative intensity on a 0 to 10 scale. Narrative intensity measures emotional stakes, revelations and dramatic pressure. Gameplay intensity measures mechanical pressure, danger and player load.</p>
+        </div>
 
+        <div class="legend-grid" aria-label="Graph legend">
+          <span class="legend-item"><i class="legend-line line-heist-narrative"></i>The Heist · Narrative</span>
+          <span class="legend-item"><i class="legend-line line-heist-gameplay"></i>The Heist · Gameplay</span>
+          <span class="legend-item"><i class="legend-line line-heroes-narrative"></i>Heroes · Narrative</span>
+          <span class="legend-item"><i class="legend-line line-heroes-gameplay"></i>Heroes · Gameplay</span>
+        </div>
+
+        <svg class="pacing-graph" viewBox="0 0 940 500" role="img" aria-label="Combined pacing graph comparing narrative and gameplay intensity for The Heist and Heroes on a scale from 0 to 10">
+          <rect x="0" y="0" width="940" height="500" fill="transparent" />
+
+          <text x="46" y="56" class="tick-label">10</text>
+          <text x="53" y="92" class="tick-label">9</text>
+          <text x="53" y="128" class="tick-label">8</text>
+          <text x="53" y="164" class="tick-label">7</text>
+          <text x="53" y="200" class="tick-label">6</text>
+          <text x="53" y="236" class="tick-label">5</text>
+          <text x="53" y="272" class="tick-label">4</text>
+          <text x="53" y="308" class="tick-label">3</text>
+          <text x="53" y="344" class="tick-label">2</text>
+          <text x="53" y="380" class="tick-label">1</text>
+          <text x="53" y="416" class="tick-label">0</text>
+
+          <line x1="82" y1="50" x2="82" y2="410" class="axis-line" />
+          <line x1="82" y1="410" x2="888" y2="410" class="axis-line" />
+
+          <line x1="82" y1="50" x2="888" y2="50" class="grid-line" />
+          <line x1="82" y1="86" x2="888" y2="86" class="grid-line" />
+          <line x1="82" y1="122" x2="888" y2="122" class="grid-line" />
+          <line x1="82" y1="158" x2="888" y2="158" class="grid-line" />
+          <line x1="82" y1="194" x2="888" y2="194" class="grid-line" />
+          <line x1="82" y1="230" x2="888" y2="230" class="grid-line" />
+          <line x1="82" y1="266" x2="888" y2="266" class="grid-line" />
+          <line x1="82" y1="302" x2="888" y2="302" class="grid-line" />
+          <line x1="82" y1="338" x2="888" y2="338" class="grid-line" />
+          <line x1="82" y1="374" x2="888" y2="374" class="grid-line" />
+          <line x1="82" y1="410" x2="888" y2="410" class="grid-line" />
+
+          <line x1="150" y1="50" x2="150" y2="410" class="beat-line" />
+          <line x1="286" y1="50" x2="286" y2="410" class="beat-line" />
+          <line x1="422" y1="50" x2="422" y2="410" class="beat-line" />
+          <line x1="558" y1="50" x2="558" y2="410" class="beat-line" />
+          <line x1="694" y1="50" x2="694" y2="410" class="beat-line" />
+          <line x1="830" y1="50" x2="830" y2="410" class="beat-line" />
+
+          <polyline points="150,302 286,230 422,86 558,86 694,50 830,158" class="graph-line heist-narrative" />
+          <polyline points="150,338 286,266 422,338 558,50 694,302 830,374" class="graph-line heist-gameplay" />
+          <polyline points="150,194 286,158 422,158 558,122 694,86 830,194" class="graph-line heroes-narrative" />
+          <polyline points="150,374 286,374 422,338 558,374 694,374 830,374" class="graph-line heroes-gameplay" />
+
+          <circle cx="150" cy="302" r="5" class="point heist-narrative-point" /><circle cx="286" cy="230" r="5" class="point heist-narrative-point" /><circle cx="422" cy="86" r="5" class="point heist-narrative-point" /><circle cx="558" cy="86" r="5" class="point heist-narrative-point" /><circle cx="694" cy="50" r="5" class="point heist-narrative-point" /><circle cx="830" cy="158" r="5" class="point heist-narrative-point" />
+          <circle cx="150" cy="338" r="5" class="point heist-gameplay-point" /><circle cx="286" cy="266" r="5" class="point heist-gameplay-point" /><circle cx="422" cy="338" r="5" class="point heist-gameplay-point" /><circle cx="558" cy="50" r="5" class="point heist-gameplay-point" /><circle cx="694" cy="302" r="5" class="point heist-gameplay-point" /><circle cx="830" cy="374" r="5" class="point heist-gameplay-point" />
+          <circle cx="150" cy="194" r="5" class="point heroes-narrative-point" /><circle cx="286" cy="158" r="5" class="point heroes-narrative-point" /><circle cx="422" cy="158" r="5" class="point heroes-narrative-point" /><circle cx="558" cy="122" r="5" class="point heroes-narrative-point" /><circle cx="694" cy="86" r="5" class="point heroes-narrative-point" /><circle cx="830" cy="194" r="5" class="point heroes-narrative-point" />
+          <circle cx="150" cy="374" r="5" class="point heroes-gameplay-point" /><circle cx="286" cy="374" r="5" class="point heroes-gameplay-point" /><circle cx="422" cy="338" r="5" class="point heroes-gameplay-point" /><circle cx="558" cy="374" r="5" class="point heroes-gameplay-point" /><circle cx="694" cy="374" r="5" class="point heroes-gameplay-point" /><circle cx="830" cy="374" r="5" class="point heroes-gameplay-point" />
+
+          <text x="150" y="290" text-anchor="middle" class="value-label">3</text>
+          <text x="286" y="218" text-anchor="middle" class="value-label">5</text>
+          <text x="422" y="74" text-anchor="middle" class="value-label">9</text>
+          <text x="558" y="74" text-anchor="middle" class="value-label">9</text>
+          <text x="694" y="38" text-anchor="middle" class="value-label">10</text>
+          <text x="830" y="146" text-anchor="middle" class="value-label">7</text>
+
+          <text x="150" y="355" text-anchor="middle" class="value-label subtle">2</text>
+          <text x="286" y="254" text-anchor="middle" class="value-label subtle">4</text>
+          <text x="422" y="326" text-anchor="middle" class="value-label subtle">2</text>
+          <text x="558" y="38" text-anchor="middle" class="value-label subtle">10</text>
+          <text x="694" y="290" text-anchor="middle" class="value-label subtle">3</text>
+          <text x="830" y="362" text-anchor="middle" class="value-label subtle">1</text>
+
+          <text x="150" y="182" text-anchor="middle" class="value-label gold">6</text>
+          <text x="286" y="146" text-anchor="middle" class="value-label gold">7</text>
+          <text x="422" y="146" text-anchor="middle" class="value-label gold">7</text>
+          <text x="558" y="110" text-anchor="middle" class="value-label gold">8</text>
+          <text x="694" y="74" text-anchor="middle" class="value-label gold">9</text>
+          <text x="830" y="182" text-anchor="middle" class="value-label gold">6</text>
+
+          <text x="150" y="393" text-anchor="middle" class="value-label gold-subtle">1</text>
+          <text x="286" y="393" text-anchor="middle" class="value-label gold-subtle">1</text>
+          <text x="422" y="326" text-anchor="middle" class="value-label gold-subtle">2</text>
+          <text x="558" y="393" text-anchor="middle" class="value-label gold-subtle">1</text>
+          <text x="694" y="393" text-anchor="middle" class="value-label gold-subtle">1</text>
+          <text x="830" y="393" text-anchor="middle" class="value-label gold-subtle">1</text>
+
+          <text x="150" y="438" text-anchor="middle" class="axis-label">Setup</text>
+          <text x="286" y="438" text-anchor="middle" class="axis-label">Infiltration</text>
+          <text x="422" y="438" text-anchor="middle" class="axis-label">Saburo</text>
+          <text x="558" y="438" text-anchor="middle" class="axis-label">Escape</text>
+          <text x="694" y="438" text-anchor="middle" class="axis-label">Jackie</text>
+          <text x="830" y="438" text-anchor="middle" class="axis-label">Dex</text>
+
+          <text x="150" y="470" text-anchor="middle" class="axis-label secondary-row">Contact</text>
+          <text x="286" y="470" text-anchor="middle" class="axis-label secondary-row">Misty</text>
+          <text x="422" y="470" text-anchor="middle" class="axis-label secondary-row">Garage</text>
+          <text x="558" y="470" text-anchor="middle" class="axis-label secondary-row">Offering</text>
+          <text x="694" y="470" text-anchor="middle" class="axis-label secondary-row">Ofrenda</text>
+          <text x="830" y="470" text-anchor="middle" class="axis-label secondary-row">Reflection</text>
+
+          <text x="86" y="438" class="row-label">The Heist</text>
+          <text x="86" y="470" class="row-label secondary-row">Heroes</text>
+        </svg>
+      </div>
       <figure class="media-frame payoff-media" data-fallback="Add assets/images/heroes-ofrenda.jpg">
         <img src="assets/images/heroes-ofrenda.jpg" alt="Jackie's ofrenda" />
         <figcaption><span>Emotional Payoff</span><strong>The quest turns private exploration into communal remembrance.</strong></figcaption>
