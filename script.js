@@ -197,6 +197,60 @@
   window.addEventListener('resize', requestRender);
   requestRender();
 
+  // Show real images when available, otherwise keep the labelled placeholder.
+  document.querySelectorAll('.project-media').forEach(media => {
+    const img = media.querySelector('img');
+    if (!img) return;
+
+    const markLoaded = () => media.classList.add('has-image');
+    const markMissing = () => media.classList.remove('has-image');
+
+    if (img.complete) {
+      img.naturalWidth > 0 ? markLoaded() : markMissing();
+    }
+
+    img.addEventListener('load', markLoaded);
+    img.addEventListener('error', markMissing);
+  });
+
+  // Sticky scenes need a meaningful scroll position when reached from navigation.
+  // Otherwise the anchor lands at progress 0, before the animated content is visible.
+  const stickyAnchorProgress = {
+    'quest-board': .66,
+    'about': .70
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      event.preventDefault();
+
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      const headerOffset = document.querySelector('.site-header')?.offsetHeight || 0;
+
+      let top;
+      if (!isMobile && Object.prototype.hasOwnProperty.call(stickyAnchorProgress, id)) {
+        const progress = stickyAnchorProgress[id];
+        const scrollable = Math.max(0, target.offsetHeight - window.innerHeight);
+        top = target.offsetTop + scrollable * progress;
+      } else {
+        top = target.offsetTop - headerOffset;
+      }
+
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      history.replaceState(null, '', href);
+
+      if (nav) nav.classList.remove('open');
+      if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
   if (mobileToggle && nav) {
     mobileToggle.addEventListener('click', () => {
       const open = nav.classList.toggle('open');

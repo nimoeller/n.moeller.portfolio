@@ -26,7 +26,7 @@
     <div class="site-header-inner">
       <a class="brand" href="#top">
         <span class="brand-title">Niklas</span>
-        <span class="brand-subtitle">Quest & Mission Designer</span>
+        <span class="brand-subtitle">Game Designer · Quest & Mission Design</span>
       </a>
 
       <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-panel" aria-label="Open navigation">
@@ -34,10 +34,10 @@
       </button>
 
       <nav class="nav" id="nav-panel">
-        <a href="#hero">Notice</a>
-        <a href="#quest-board">Quest Board</a>
-        <a href="#scribe">The Scribe</a>
-        <a href="#contact">Send a Raven</a>
+        <a href="#hero">Home</a>
+        <a href="#quest-board">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -56,13 +56,13 @@
           <h1>I design quests players want to finish.</h1>
 
           <p class="lead">
-            Quest & Mission Designer focused on structure, pacing, player motivation,
-            encounter flow and meaningful choice.
+            Game Designer focused on Quest & Mission Design, with an emphasis on structure, pacing,
+            player motivation, narrative gameplay and meaningful choice.
           </p>
 
           <div class="hero-actions">
-            <a class="ink-button" href="#quest-board">Browse the Quest Board</a>
-            <a class="text-link" href="#scribe">Read my dossier →</a>
+            <a class="ink-button" href="#quest-board">View Projects</a>
+            <a class="text-link" href="#about">About me →</a>
           </div>
 
           <div class="scribble">Objectives before waypoints.</div>
@@ -79,103 +79,100 @@
     <section class="scene board-scene" id="quest-board">
       <div class="scene-sticky board-sticky">
         <div class="board-heading" id="boardHeading">
-          <p class="section-kicker">Guild Notice Board</p>
-          <h2>Selected Missions</h2>
-          <p>Each project is treated like a quest posting: challenge, objective, approach and outcome.</p>
+          <p class="section-kicker">Portfolio</p>
+          <h2>Projects</h2>
+          <p>Quest design studies, professional game design work and selected earlier projects.</p>
         </div>
 
         <div class="quest-board-shell">
           <div class="board-rail top"></div>
           <div class="board-rail bottom"></div>
 
-          <article class="quest-paper parchment card-main" id="questMain">
+          <article class="quest-paper parchment card-main case-study-card" id="questMain">
             <span class="pin brass"></span>
 
             <div class="quest-tag-row">
-              <span>Main Quest</span>
-              <span>2026</span>
+              <span>Quest Design Case Study</span>
+              <span>Deconstruction + Redesign</span>
             </div>
 
             <div class="image-frame large">
-              <div class="image-placeholder">Gameplay image / video</div>
+              <div class="image-placeholder project-media" data-fallback="Uses case-studies/heroes/assets/images/heroes-hero.jpg">
+                <img src="case-studies/heroes/assets/images/heroes-hero.jpg" alt="Cyberpunk 2077 Heroes quest deconstruction" />
+                <span>Heroes case study</span>
+              </div>
             </div>
 
-            <h3>The Forgotten District</h3>
-            <p class="quest-meta">Quest Design · Investigation · Branching Structure</p>
+            <h3>Cyberpunk 2077: Heroes</h3>
+            <p class="quest-meta">Quest Structure · Player Agency · Narrative Pacing · Branching</p>
             <p class="quest-body">
-              A branching investigation quest built around player deduction rather than waypoint following.
+              A visual deconstruction of Heroes, including a third branch that turns postponing a decision into a meaningful consequence.
             </p>
 
             <div class="quest-detail">
-              <span>Objective</span>
-              <strong>Make exploration feel like progress.</strong>
+              <span>Design Focus</span>
+              <strong>Quest logic, expressive choice, pacing and consequence.</strong>
             </div>
 
-            <div class="quest-detail">
-              <span>Reward</span>
-              <strong>Stronger player agency and curiosity.</strong>
-            </div>
-
-            <div class="margin-note">Follow leads, not arrows.</div>
-            <a href="#" class="text-link">Read the quest breakdown →</a>
+            <div class="margin-note">Analysis first. Then push the design further.</div>
+            <a href="case-studies/heroes/" class="text-link">View case study →</a>
           </article>
 
           <article class="quest-paper parchment card-side" id="questSide">
             <span class="pin red"></span>
 
             <div class="quest-tag-row">
-              <span>Side Quest</span>
-              <span>Mission Design</span>
+              <span>Earlier Work</span>
+              <span>Student Projects</span>
             </div>
 
             <div class="image-frame">
-              <div class="image-placeholder compact">Project image</div>
-            </div>
-
-            <h3>Last Train Out</h3>
-            <p class="quest-meta">Timed Objective · Tension Curve · Optional Goals</p>
-            <p class="quest-body">
-              A timed mission prototype balancing pressure, clarity and optional objectives.
-            </p>
-
-            <div class="quest-detail">
-              <span>Focus</span>
-              <strong>Pacing under pressure.</strong>
-            </div>
-
-            <a href="#" class="text-link">Open posting →</a>
-          </article>
-
-          <article class="quest-paper parchment card-contract case-study-card" id="questContract">
-            <span class="pin brass"></span>
-
-            <div class="quest-tag-row">
-              <span>Case Study</span>
-              <span>Quest Deconstruction</span>
-            </div>
-
-            <div class="image-frame">
-              <div class="case-study-cover" aria-hidden="true">
-                <span>Cyberpunk 2077</span>
-                <strong>HEROES</strong>
-                <small>Quest Deconstruction</small>
+              <div class="image-placeholder project-media" data-fallback="Add assets/images/projects/student-projects/student-work-cover.jpg">
+                <img src="assets/images/projects/student-projects/student-work-cover.jpg" alt="Selected student game design work" />
+                <span>Student project image</span>
               </div>
             </div>
 
-            <h3>Heroes</h3>
-            <p class="quest-meta">Quest Structure · Player Agency · Pacing · Branching</p>
+            <h3>Selected Student Work</h3>
+            <p class="quest-meta">Game Design · Prototypes · Gameplay</p>
             <p class="quest-body">
-              A visual deconstruction of Heroes, including a redesign that turns an apparent third choice into a meaningful new branch.
+              Earlier hands-on game projects selected for the design work, prototypes and gameplay material that still support my current portfolio.
             </p>
 
             <div class="quest-detail">
               <span>Focus</span>
-              <strong>How emotional intent, world states and consequence shape a quest.</strong>
+              <strong>Additional evidence of practical game design and development work.</strong>
             </div>
 
-            <a href="case-studies/heroes/" class="text-link">View case study →</a>
+            <a href="#earlier-work" class="text-link">View earlier work →</a>
           </article>
-        </div>
+
+          <article class="quest-paper parchment card-contract" id="questContract">
+            <span class="pin brass"></span>
+
+            <div class="quest-tag-row">
+              <span>Professional Project</span>
+              <span>Game Design</span>
+            </div>
+
+            <div class="image-frame">
+              <div class="image-placeholder project-media" data-fallback="Add assets/images/projects/almos/almos-cover.jpg">
+                <img src="assets/images/projects/almos/almos-cover.jpg" alt="Almos: A Dream Painter's Tale project screenshot" />
+                <span>Almos project image</span>
+              </div>
+            </div>
+
+            <h3>Almos: A Dream Painter's Tale</h3>
+            <p class="quest-meta">CEO · Game Designer</p>
+            <p class="quest-body">
+              My most recent professional game project, included here as broader game design and production experience rather than quest design work.
+            </p>
+
+            <div class="quest-detail">
+              <span>Role</span>
+              <strong>CEO / Game Designer</strong>
+            </div>
+          </article>        </div>
 
         <div class="chapter-mark" id="chapterMark">
           <span>Chapter II</span>
@@ -185,40 +182,43 @@
     </section>
 
     <!-- SCRIBE / ABOUT SCENE -->
-    <section class="scene scribe-scene" id="scribe">
+    <section class="scene scribe-scene" id="about">
       <div class="scene-sticky scribe-sticky">
 
         <div class="scribe-title" id="scribeTitle">
-          <p class="section-kicker">Guild Record</p>
-          <h2>The Scribe Behind the Quests</h2>
+          <p class="section-kicker">Game Designer</p>
+          <h2>About Me</h2>
         </div>
 
         <div class="dossier-stage">
           <article class="portrait-card parchment" id="portraitCard">
             <span class="pin brass side-pin"></span>
-            <div class="portrait-placeholder">Portrait</div>
-            <p>Quest & Mission Designer</p>
+            <div class="portrait-placeholder portrait-media" data-fallback="Add assets/images/profile/niklas-moeller-portrait.jpg">
+              <img src="assets/images/profile/niklas-moeller-portrait.jpg" alt="Portrait of Niklas Möller" />
+              <span>Portrait</span>
+            </div>
+            <p>Game Designer · Quest & Mission Design</p>
           </article>
 
           <article class="dossier parchment torn" id="dossier">
             <span class="wax-seal">N</span>
 
-            <p class="section-kicker">Designer Dossier</p>
-            <h2>Turning narrative intent into playable structure.</h2>
+            <p class="section-kicker">About</p>
+            <h2>Game design with a focus on quests and missions.</h2>
 
             <p class="dossier-lead">
-              Clear goals, interesting complications, strong pacing and decisions
-              players actually notice.
+              Game Designer with professional development experience, currently focused on Quest & Mission Design.
+              I am especially interested in structure, pacing, player motivation, narrative gameplay and meaningful choice.
             </p>
 
             <div class="dossier-grid">
               <div class="dossier-column">
-                <span>Specialties</span>
+                <span>Design Focus</span>
                 <ul>
-                  <li>Quest Structure</li>
-                  <li>Mission Pacing</li>
-                  <li>Player Motivation</li>
-                  <li>Branching Objectives</li>
+                  <li>Quest & Mission Structure</li>
+                  <li>Pacing & Player Motivation</li>
+                  <li>Narrative Gameplay</li>
+                  <li>Choice & Consequence</li>
                 </ul>
               </div>
 
@@ -233,13 +233,45 @@
               </div>
 
               <div class="dossier-column full">
-                <span>Design Belief</span>
+                <span>Approach</span>
                 <p>
-                  A good quest is not a task list. It is a promise to the player
-                  that their attention will be rewarded.
+                  I like turning narrative intent into clear, playable structure and giving players reasons to care about what they do next.
                 </p>
               </div>
             </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EARLIER WORK -->
+    <section class="earlier-work-section" id="earlier-work">
+      <div class="earlier-work-wrap">
+        <div class="earlier-work-heading">
+          <p class="section-kicker">Selected Projects</p>
+          <h2>Earlier Work</h2>
+          <p>Selected earlier projects with useful gameplay, design or prototype material.</p>
+        </div>
+
+        <div class="earlier-work-grid">
+          <article class="earlier-work-card parchment">
+            <div class="image-placeholder project-media compact" data-fallback="Add assets/images/projects/student-projects/student-project-01-cover.jpg">
+              <img src="assets/images/projects/student-projects/student-project-01-cover.jpg" alt="Student project 01" />
+              <span>Student Project 01</span>
+            </div>
+            <p class="quest-meta">Student Project</p>
+            <h3>Project 01</h3>
+            <p>Replace this title and description with the strongest older project that has useful video or image material.</p>
+          </article>
+
+          <article class="earlier-work-card parchment">
+            <div class="image-placeholder project-media compact" data-fallback="Add assets/images/projects/student-projects/student-project-02-cover.jpg">
+              <img src="assets/images/projects/student-projects/student-project-02-cover.jpg" alt="Student project 02" />
+              <span>Student Project 02</span>
+            </div>
+            <p class="quest-meta">Student Project</p>
+            <h3>Project 02</h3>
+            <p>Use this slot for another project that demonstrates a different design or development skill.</p>
           </article>
         </div>
       </div>
@@ -261,7 +293,7 @@
           <div class="choice-grid">
             <a class="choice-card" href="mailto:niklas.moeller.shg@gmail.com">
               <span class="choice-label">Send a Letter</span>
-              <strong>E-Mail</strong
+              <strong>E-Mail</strong>
               <span class="choice-arrow">→</span>
             </a>
 
@@ -277,7 +309,7 @@
   </main>
 
   <footer class="site-footer">
-    <span>Quest & Mission Design Portfolio</span>
+    <span>Game Design · Quest & Mission Design Portfolio</span>
   </footer>
 
   <script src="script.js"></script>
