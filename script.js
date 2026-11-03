@@ -1,267 +1,337 @@
 (() => {
-  const clamp = (n, min = 0, max = 1) => Math.min(max, Math.max(min, n));
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const easeOut = t => 1 - Math.pow(1 - t, 3);
-  const easeInOut = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  document.documentElement.classList.add('js-enabled');
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = $('.hero-scene');
+  const heroPaper = $('#heroPaper');
+  const heroPin = $('#heroPin');
+  const heroBackboard = $('#heroBackboard');
+  const scrollHint = $('#scrollHint');
+  const nav = $('#nav-panel');
+  const menuButton = $('.mobile-menu-toggle');
 
-  const heroScene = document.querySelector('.hero-scene');
-  const heroPaper = document.getElementById('heroPaper');
-  const scrollHint = document.getElementById('scrollHint');
+  // Hero intro: the pin lifts first, the parchment tilts forward, then a gust
+  // carries it away. The timber behind it is revealed progressively.
+  // The timeline is scroll-driven, so reversing the scroll reverses the scene.
+  const smoothstep = (a, b, value) => {
+    const t = clamp((value - a) / (b - a));
+    return t * t * (3 - 2 * t);
+  };
+  let frameRequested = false;
+  function updateHero() {
+    frameRequested = false;
+    if (!hero || !heroPaper) return;
+    if (reduceMotion || window.innerWidth <= 900) return;
 
-  const boardScene = document.querySelector('.board-scene');
-  const boardHeading = document.getElementById('boardHeading');
-  const questMain = document.getElementById('questMain');
-  const questSide = document.getElementById('questSide');
-  const questContract = document.getElementById('questContract');
-  const chapterMark = document.getElementById('chapterMark');
+    const travel = Math.max(1, hero.offsetHeight - window.innerHeight);
+    const p = clamp(-hero.getBoundingClientRect().top / travel);
+    const unpin = smoothstep(.12, .29, p);
+    const tilt = smoothstep(.26, .51, p);
+    const gust = smoothstep(.48, .92, p);
+    const disappear = smoothstep(.79, .96, p);
 
-  const scribeScene = document.querySelector('.scribe-scene');
-  const scribeTitle = document.getElementById('scribeTitle');
-  const portraitCard = document.getElementById('portraitCard');
-  const dossier = document.getElementById('dossier');
+    const x = gust * (window.innerWidth * .80 + 230);
+    const y = -tilt * 32 - gust * (window.innerHeight * 1.05 + 350);
+    const angle = -.4 - tilt * 5 + gust * 37;
+    const scale = 1 - tilt * .035 - gust * .22;
+    heroPaper.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${angle.toFixed(2)}deg) rotateX(${(tilt * 5).toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+    heroPaper.style.opacity = String(1 - disappear);
+    heroPaper.style.setProperty('--paper-lift', tilt.toFixed(3));
 
-  const mobileToggle = document.querySelector('.mobile-menu-toggle');
-  const nav = document.querySelector('.nav');
-
-  let ticking = false;
-
-  function sceneProgress(scene) {
-    const rect = scene.getBoundingClientRect();
-    const scrollable = scene.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return clamp(-rect.top / scrollable);
+    if (heroPin) {
+      heroPin.style.transform = `translate(-50%,${(-56 * unpin).toFixed(1)}px) rotate(${(-36 * unpin).toFixed(1)}deg) scale(${(1 - .10 * unpin).toFixed(3)})`;
+      heroPin.style.opacity = String(1 - smoothstep(.21, .32, p));
+    }
+    if (heroBackboard) heroBackboard.style.opacity = String(.04 + .80 * smoothstep(.27, .61, p));
+    if (scrollHint) scrollHint.style.opacity = String(1 - smoothstep(.035, .19, p));
   }
-
-  function range(p, start, end) {
-    return clamp((p - start) / (end - start));
-  }
-
-  function setTransform(el, x, y, scale, rotate) {
-    el.style.transform =
-      `translate3d(${x}px, ${y}px, 0) scale(${scale}) rotate(${rotate}deg)`;
-  }
-
-  function renderHero() {
-    if (!heroScene || !heroPaper) return;
-
-    const p = sceneProgress(heroScene);
-    const retreat = easeInOut(range(p, .18, .82));
-
-    const y = lerp(0, -105, retreat);
-    const scale = lerp(1, .72, retreat);
-    const rotate = lerp(-.65, .35, retreat);
-    const opacity = lerp(1, .14, range(p, .66, .94));
-    const blur = lerp(0, 2.5, range(p, .74, .95));
-
-    setTransform(heroPaper, 0, y, scale, rotate);
-    heroPaper.style.opacity = opacity;
-    heroPaper.style.filter = `blur(${blur}px)`;
-
-    if (scrollHint) {
-      scrollHint.style.opacity = lerp(1, 0, range(p, .05, .28));
-      scrollHint.style.transform = `translateX(-50%) translateY(${lerp(0, 15, p)}px)`;
+  function requestHeroFrame() {
+    if (!frameRequested) {
+      frameRequested = true;
+      requestAnimationFrame(updateHero);
     }
   }
-
-  function renderBoard() {
-    if (!boardScene) return;
-
-    const p = sceneProgress(boardScene);
-
-    const introP = easeOut(range(p, .02, .20));
-    boardHeading.style.opacity = introP;
-    boardHeading.style.transform =
-      `translateX(-50%) translateY(${lerp(38, 0, introP)}px)`;
-
-    // Main quest arrives first
-    const a = easeOut(range(p, .16, .38));
-    questMain.style.opacity = a;
-    setTransform(
-      questMain,
-      lerp(-340, 0, a),
-      lerp(80, 0, a),
-      lerp(.92, 1, a),
-      lerp(-8, -1.1, a)
-    );
-
-    // Side quest arrives from the opposite side
-    const b = easeOut(range(p, .34, .56));
-    questSide.style.opacity = b;
-    setTransform(
-      questSide,
-      lerp(340, 0, b),
-      lerp(35, 0, b),
-      lerp(.94, 1, b),
-      lerp(7, .9, b)
-    );
-
-    // Contract rises in last
-    const c = easeOut(range(p, .52, .72));
-    questContract.style.opacity = c;
-    setTransform(
-      questContract,
-      lerp(220, 0, c),
-      lerp(260, 0, c),
-      lerp(.90, 1, c),
-      lerp(5, -1.2, c)
-    );
-
-    // Whole board breathes slightly after assembly
-    const settle = range(p, .74, .96);
-    const cards = [
-      [questMain, -1.1, -1.0],
-      [questSide, .9, .75],
-      [questContract, -1.2, -1.0]
-    ];
-
-    cards.forEach(([el, r0, r1]) => {
-      if (!el) return;
-      const current = el.style.transform;
-      if (settle > 0) {
-        el.style.filter = `drop-shadow(0 ${lerp(0, 10, settle)}px ${lerp(0, 15, settle)}px rgba(0,0,0,.08))`;
+  window.addEventListener('scroll', requestHeroFrame, { passive: true });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 900 && heroPaper) {
+      heroPaper.style.transform = '';
+      heroPaper.style.opacity = '';
+      heroPaper.style.removeProperty('--paper-lift');
+      if (heroPin) {
+        heroPin.style.transform = '';
+        heroPin.style.opacity = '';
       }
-    });
+      if (heroBackboard) heroBackboard.style.opacity = '';
+      if (scrollHint) scrollHint.style.opacity = '';
+    } else requestHeroFrame();
+  });
+  requestHeroFrame();
 
-    if (chapterMark) {
-      const m = easeOut(range(p, .68, .88));
-      chapterMark.style.opacity = m;
-      chapterMark.style.transform = `translateY(${lerp(28, 0, m)}px)`;
-    }
-  }
-
-  function renderScribe() {
-    if (!scribeScene) return;
-
-    const p = sceneProgress(scribeScene);
-
-    const titleP = easeOut(range(p, .04, .22));
-    scribeTitle.style.opacity = titleP;
-    scribeTitle.style.transform =
-      `translateX(-50%) translateY(${lerp(28, 0, titleP)}px)`;
-
-    const portraitP = easeOut(range(p, .22, .48));
-    portraitCard.style.opacity = portraitP;
-    setTransform(
-      portraitCard,
-      lerp(-260, 0, portraitP),
-      lerp(90, 0, portraitP),
-      lerp(.88, 1, portraitP),
-      lerp(-8, -2.2, portraitP)
-    );
-
-    const dossierP = easeOut(range(p, .36, .68));
-    dossier.style.opacity = dossierP;
-    setTransform(
-      dossier,
-      lerp(260, 0, dossierP),
-      lerp(120, 0, dossierP),
-      lerp(.94, 1, dossierP),
-      lerp(5, .4, dossierP)
-    );
-
-    const settle = easeInOut(range(p, .72, .96));
-    if (settle > 0) {
-      dossier.style.filter = `drop-shadow(0 ${lerp(0, 18, settle)}px ${lerp(0, 25, settle)}px rgba(0,0,0,.10))`;
-    }
-  }
-
-  function render() {
-    ticking = false;
-
-    if (window.matchMedia('(max-width: 900px)').matches) {
-      [
-        heroPaper, scrollHint, boardHeading, questMain, questSide,
-        questContract, chapterMark, scribeTitle, portraitCard, dossier
-      ].forEach(el => {
-        if (!el) return;
-        el.style.transform = '';
-        el.style.opacity = '';
-        el.style.filter = '';
+  // Moving light, not a moving card. The paper stays readable and in place.
+  if (hero && heroPaper && !reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+    let lightFrame = false;
+    let lightX = 50, lightY = 20;
+    hero.addEventListener('pointermove', event => {
+      const r = heroPaper.getBoundingClientRect();
+      if (r.width <= 0 || r.height <= 0) return;
+      lightX = clamp((event.clientX - r.left) / r.width) * 100;
+      lightY = clamp((event.clientY - r.top) / r.height) * 100;
+      if (lightFrame) return;
+      lightFrame = true;
+      requestAnimationFrame(() => {
+        lightFrame = false;
+        heroPaper.style.setProperty('--light-x', `${lightX.toFixed(1)}%`);
+        heroPaper.style.setProperty('--light-y', `${lightY.toFixed(1)}%`);
       });
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => {
+      heroPaper.style.setProperty('--light-x', '50%');
+      heroPaper.style.setProperty('--light-y', '20%');
+    });
+  }
+
+  // Reversible board motion. Papers enter while the board is on-screen,
+  // then fly away once the board leaves the viewport in either direction.
+  const board = $('#projectNoticeBoard');
+  const studentBoard = $('#studentNoticeBoard');
+  const boards = [board, studentBoard].filter(Boolean);
+  let navigationBoardPending = null;
+  let boardFrameQueued = false;
+
+  function updateBoards() {
+    boardFrameQueued = false;
+    if (reduceMotion) {
+      boards.forEach(el => el.classList.add('is-revealed'));
       return;
     }
-
-    renderHero();
-    renderBoard();
-    renderScribe();
+    const h = window.innerHeight;
+    boards.forEach(el => {
+      if (navigationBoardPending === el) return;
+      const r = el.getBoundingClientRect();
+      const showing = r.top < h * .84 && r.bottom > h * .60;
+      // Past the bottom of the viewport: next entry should come back from the sides.
+      const leavingDown = r.bottom <= h * .60;
+      el.classList.toggle('is-departing', leavingDown);
+      el.classList.toggle('is-revealed', showing);
+    });
   }
-
-  function requestRender() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(render);
+  function requestBoardFrame() {
+    if (!boardFrameQueued) {
+      boardFrameQueued = true;
+      requestAnimationFrame(updateBoards);
     }
   }
+  window.addEventListener('scroll', requestBoardFrame, {passive: true});
+  window.addEventListener('resize', requestBoardFrame);
+  requestBoardFrame();
 
-  window.addEventListener('scroll', requestRender, { passive: true });
-  window.addEventListener('resize', requestRender);
-  requestRender();
-
-  // Show real images when available, otherwise keep the labelled placeholder.
-  document.querySelectorAll('.project-media').forEach(media => {
-    const img = media.querySelector('img');
-    if (!img) return;
-
-    const markLoaded = () => media.classList.add('has-image');
-    const markMissing = () => media.classList.remove('has-image');
-
-    if (img.complete) {
-      img.naturalWidth > 0 ? markLoaded() : markMissing();
-    }
-
-    img.addEventListener('load', markLoaded);
-    img.addEventListener('error', markMissing);
-  });
-
-  // Sticky scenes need a meaningful scroll position when reached from navigation.
-  // Otherwise the anchor lands at progress 0, before the animated content is visible.
-  const stickyAnchorProgress = {
-    'quest-board': .66,
-    'about': .70
-  };
-
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', event => {
-      const href = link.getAttribute('href');
-      if (!href || href === '#') return;
-
-      const id = href.slice(1);
-      const target = document.getElementById(id);
-      if (!target) return;
-
-      event.preventDefault();
-
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      const headerOffset = document.querySelector('.site-header')?.offsetHeight || 0;
-
-      let top;
-      if (!isMobile && Object.prototype.hasOwnProperty.call(stickyAnchorProgress, id)) {
-        const progress = stickyAnchorProgress[id];
-        const scrollable = Math.max(0, target.offsetHeight - window.innerHeight);
-        top = target.offsetTop + scrollable * progress;
-      } else {
-        top = target.offsetTop - headerOffset;
+  // Reveal other sections normally. Navigation clicks can replay the reveals.
+  const reveals = $$('.reveal-on-scroll');
+  let navigationRevealTarget = null;
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const revealObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && (!navigationRevealTarget || !navigationRevealTarget.contains(entry.target))) {
+          entry.target.classList.add('in-view');
+        }
       }
+    }, { threshold: .08, rootMargin: '0px 0px -28px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in-view'));
+  }
 
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      history.replaceState(null, '', href);
-
-      if (nav) nav.classList.remove('open');
-      if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
-    });
+  // Show images if present, otherwise leave intentional placeholder styling.
+  $$('.project-media, .portrait-media').forEach(media => {
+    const img = $('img', media);
+    if (!img) return;
+    const update = () => media.classList.toggle('has-image', img.complete && img.naturalWidth > 0);
+    img.addEventListener('load', update);
+    img.addEventListener('error', update);
+    update();
   });
 
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      mobileToggle.setAttribute('aria-expanded', String(open));
-    });
+  // The student showreel is optional until the editor supplies the video file.
+  const showreel = $('#studentShowreel');
+  const showreelMedia = $('#showreelMedia');
+  if (showreel && showreelMedia) {
+    const ready = () => showreelMedia.classList.add('has-video');
+    const missing = () => showreelMedia.classList.remove('has-video');
+    showreel.addEventListener('loadedmetadata', ready);
+    showreel.addEventListener('error', missing);
+    const source = $('source', showreel);
+    source?.addEventListener('error', missing);
+    if (showreel.readyState >= 1) ready();
+  }
 
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-      });
+  // Navigation includes a replay of the arrival animation, not just a scroll jump.
+  const navLinks = $$('#nav-panel a[href^="#"]');
+  const targetIds = navLinks.map(link => link.getAttribute('href').slice(1));
+  function updateActiveLink() {
+    const marker = window.scrollY + 120 + window.innerHeight * .20;
+    let active = 'hero';
+    for (const id of targetIds) {
+      const section = document.getElementById(id);
+      if (section && section.offsetTop <= marker) active = id;
+    }
+    navLinks.forEach(link => {
+      const on = link.getAttribute('href') === `#${active}`;
+      link.classList.toggle('active', on);
+      if (on) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
     });
+  }
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  window.addEventListener('resize', updateActiveLink);
+  updateActiveLink();
+
+  function closeMenu() {
+    nav?.classList.remove('open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+  }
+  menuButton?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open') || false;
+    menuButton.setAttribute('aria-expanded', String(open));
+  });
+
+  let navigationToken = 0;
+  function navigateToSection(id) {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const token = ++navigationToken;
+    const sectionBoard = id === 'quest-board' ? board : id === 'earlier-work' ? studentBoard : null;
+    const targets = $$('.reveal-on-scroll', section);
+
+    if (!reduceMotion) {
+      if (sectionBoard) {
+        navigationBoardPending = sectionBoard;
+        sectionBoard.classList.remove('is-departing', 'is-revealed');
+      } else {
+        navigationBoardPending = null;
+        navigationRevealTarget = section;
+        targets.forEach(el => el.classList.remove('in-view'));
+      }
+    }
+
+    const top = Math.max(0, section.getBoundingClientRect().top + window.scrollY -
+      (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 78) - 18);
+    window.scrollTo({top, behavior: reduceMotion ? 'instant' : 'smooth'});
+
+    function onArrival() {
+      if (token !== navigationToken) return;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (token !== navigationToken) return;
+        if (sectionBoard) {
+          // Replayed even when clicking the same link twice.
+          sectionBoard.classList.add('is-revealed');
+          navigationBoardPending = null;
+        }
+        targets.forEach((el, i) => {
+          el.style.transitionDelay = `${Math.min(i * 90, 300)}ms`;
+          el.classList.add('in-view');
+        });
+        navigationRevealTarget = null;
+      }));
+    }
+
+    if (reduceMotion) {
+      onArrival();
+    } else {
+      let frames = 0;
+      function checkScroll() {
+        if (token !== navigationToken) return;
+        if (Math.abs(window.scrollY - top) < 20 || frames++ > 120) onArrival();
+        else requestAnimationFrame(checkScroll);
+      }
+      requestAnimationFrame(checkScroll);
+    }
+    if (window.history?.replaceState) history.replaceState(null, '', `#${id}`);
+  }
+
+  $$('a[href^="#"]').forEach(link => link.addEventListener('click', e => {
+    const id = link.getAttribute('href')?.slice(1);
+    if (!id || !document.getElementById(id)) return;
+    e.preventDefault();
+    closeMenu();
+    navigateToSection(id === 'top' ? 'hero' : id);
+  }));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Natural floating dust: independently phased motes, not repeated texture tiles.
+  // The motion uses slow overlapping oscillations and slight drift; each particle
+  // has its own size, speed, direction and lifetime. Pauses when hidden.
+  const dustCanvas = $('#dustField');
+  if (dustCanvas && !reduceMotion) {
+    const ctx = dustCanvas.getContext('2d', {alpha: true});
+    if (ctx) {
+      const rand = (min, max) => min + Math.random() * (max - min);
+      let dustW = 0, dustH = 0, lastTime = 0, dustFrame = null;
+      let visible = !document.hidden;
+      const particles = Array.from({length: window.innerWidth < 700 ? 21 : 39}, () => ({
+        x: Math.random(), y: Math.random(),
+        seed: rand(0, Math.PI * 2),
+        radius: rand(.5, 1.6),
+        speed: rand(.0000010, .0000030),
+        sway: rand(.006, .028),
+        flicker: rand(.13, .38),
+        opacity: rand(.10, .31),
+        drift: rand(-.000002, .000002),
+      }));
+      function resizeDust() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        dustW = window.innerWidth;
+        dustH = window.innerHeight;
+        dustCanvas.width = Math.round(dustW * dpr);
+        dustCanvas.height = Math.round(dustH * dpr);
+        dustCanvas.style.width = `${dustW}px`;
+        dustCanvas.style.height = `${dustH}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function paintDust(t) {
+        dustFrame = null;
+        if (!visible) return;
+        // Approx. 30 FPS. Avoid making the background a main-thread bottleneck.
+        if (t - lastTime < 30) {
+          dustFrame = requestAnimationFrame(paintDust);
+          return;
+        }
+        const dt = Math.min(70, t - lastTime || 33);
+        lastTime = t;
+        ctx.clearRect(0, 0, dustW, dustH);
+        for (const p of particles) {
+          p.y -= p.speed * dt;
+          p.x += p.drift * dt;
+          if (p.y < -.06) { p.y = 1.06; p.x = Math.random(); }
+          if (p.x < -.06) p.x = 1.06;
+          if (p.x > 1.06) p.x = -.06;
+          const swayX = Math.sin(t * .00028 + p.seed) * p.sway
+            + Math.sin(t * .000091 + p.seed * 3.1) * p.sway * .35;
+          const swayY = Math.sin(t * .00018 + p.seed * 1.7) * p.sway * .23;
+          const alpha = p.opacity * (.82 + p.flicker * Math.sin(t * .00055 + p.seed));
+          ctx.fillStyle = `rgba(238,197,138,${Math.max(.015,alpha).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc((p.x + swayX) * dustW, (p.y + swayY) * dustH, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        dustFrame = requestAnimationFrame(paintDust);
+      }
+      window.addEventListener('resize', resizeDust, {passive: true});
+      document.addEventListener('visibilitychange', () => {
+        visible = !document.hidden;
+        if (!visible && dustFrame !== null) {
+          cancelAnimationFrame(dustFrame);
+          dustFrame = null;
+        } else if (visible && dustFrame === null) {
+          lastTime = 0;
+          dustFrame = requestAnimationFrame(paintDust);
+        }
+      });
+      resizeDust();
+      dustFrame = requestAnimationFrame(paintDust);
+    }
   }
 })();

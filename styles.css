@@ -80,28 +80,13 @@ a { color: inherit; }
   background: #b66a3e;
 }
 
-.dust {
-  position: absolute;
-  inset: 0;
-  opacity: .28;
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,241,211,.7) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 70% 30%, rgba(255,241,211,.5) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 35% 80%, rgba(255,241,211,.5) 0 1px, transparent 1.3px);
-  background-size: 220px 220px, 310px 310px, 380px 380px;
-}
-
-.dust-a { animation: dustFloatA 18s linear infinite; }
-.dust-b { animation: dustFloatB 26s linear infinite reverse; opacity: .12; }
-
-@keyframes dustFloatA {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(40px,-80px,0); }
-}
-
-@keyframes dustFloatB {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-50px,-120px,0); }
+/* Soft light and stationary texture replace mechanically drifting specks. */
+.dust { display: none; }
+.light-pool { animation: ambientBreath 22s ease-in-out infinite alternate; }
+.light-b { animation-duration: 30s; animation-delay: -11s; }
+@keyframes ambientBreath {
+  from { opacity: .085; }
+  to { opacity: .17; }
 }
 
 /* ---------- header ---------- */
@@ -1195,38 +1180,41 @@ h3 {
   }
 }
 
-/* ---------- project media ---------- */
+/* ---------- project media: never crop or distort user artwork ---------- */
 .project-media,
 .portrait-media {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
-
 .project-media img,
 .portrait-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity .25s ease;
-}
-
-.project-media.has-image img,
-.portrait-media.has-image img {
+  position: static;
+  display: none;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
   opacity: 1;
 }
-
+.project-media.has-image,
+.portrait-media.has-image {
+  min-height: 0 !important;
+  aspect-ratio: auto;
+  border: 0;
+  background: transparent;
+}
+.project-media.has-image img,
+.portrait-media.has-image img { display: block; }
 .project-media.has-image > span,
-.portrait-media.has-image > span {
-  opacity: 0;
-}
-
+.portrait-media.has-image > span { display: none; }
 .project-media > span,
-.portrait-media > span {
-  transition: opacity .2s ease;
-}
+.portrait-media > span { transition: opacity .2s ease; }
+.portrait-media img { max-height: 480px; }
+.portrait-media.has-image img { width: 100%; }
 
 /* ---------- earlier work ---------- */
 .earlier-work-section {
@@ -1284,4 +1272,823 @@ h3 {
   .earlier-work-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- original quest cover ---------- */
+.original-quest-cover {
+  position: relative;
+  min-height: 255px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 76% 25%, rgba(238,225,191,.18) 0 9%, transparent 10%),
+    radial-gradient(circle at 76% 25%, rgba(238,225,191,.06) 0 24%, transparent 25%),
+    linear-gradient(145deg, #33402f 0%, #20281e 48%, #11150f 100%);
+  color: #efe0bd;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.original-quest-cover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 38%;
+  background:
+    linear-gradient(165deg, transparent 0 38%, rgba(8,11,7,.75) 39% 100%),
+    linear-gradient(195deg, transparent 0 52%, rgba(11,16,10,.82) 53% 100%);
+}
+.original-quest-cover > * { position: relative; z-index: 1; }
+.original-quest-cover span,
+.original-quest-cover small {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.original-quest-cover span { color: #c6ab77; font-size: 8px; }
+.original-quest-cover strong {
+  margin-top: 8px;
+  font-family: "Cinzel", serif;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: .92;
+  font-weight: 600;
+}
+.original-quest-cover small { margin-top: 10px; color: #aa9b79; font-size: 7px; }
+
+/* ========================================================
+   THE NOTICE BOARD
+   Every paper owns its space, but feels hand-pinned and irregular.
+   ======================================================== */
+html { scroll-padding-top: calc(var(--header-h) + 20px); }
+#quest-board, #earlier-work, #about, #contact { scroll-margin-top: calc(var(--header-h) + 20px); }
+.site-header .nav { gap: clamp(12px, 2vw, 26px); }
+.nav a { padding: 9px 2px; position: relative; }
+.nav a.active, .nav a[aria-current="location"] { color: #f7e9cb; }
+.nav a.active::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 1px;
+  height: 2px;
+  background: #c39b61;
+}
+.board-scene {
+  height: auto;
+  padding: clamp(108px, 11vw, 148px) 18px 120px;
+}
+.board-sticky {
+  position: relative;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  background: transparent;
+  padding: 0;
+}
+.board-heading {
+  position: relative;
+  inset: auto;
+  width: min(100%, 900px);
+  margin: 0 auto 62px;
+  transform: none;
+  opacity: 1;
+  text-align: center;
+  will-change: auto;
+  z-index: 1;
+}
+.board-heading h2 { font-size: clamp(48px, 6vw, 80px); margin-bottom: 14px; }
+.board-heading > p:not(.section-kicker) { max-width: 700px; }
+.quest-board-shell {
+  position: relative;
+  inset: auto;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.09fr) minmax(0, .91fr);
+  grid-template-rows: auto auto;
+  gap: clamp(32px, 4vw, 64px) clamp(34px, 4vw, 58px);
+  align-items: start;
+  width: min(100%, 1200px);
+  height: auto;
+  margin: 0 auto;
+  padding: clamp(42px, 5.7vw, 76px) clamp(28px, 4.5vw, 60px) clamp(57px, 6.5vw, 90px);
+  transform: none;
+  border: 9px solid #3b2619;
+  border-radius: 5px;
+  background:
+    radial-gradient(ellipse at 39% 27%, rgba(200,133,66,.13),transparent 57%),
+    repeating-linear-gradient(90deg, transparent 0 172px, rgba(0,0,0,.14) 173px 176px, rgba(202,143,80,.08) 177px 179px, transparent 180px 350px),
+    repeating-linear-gradient(3deg, transparent 0 35px, rgba(220,172,99,.022) 36px 37px),
+    linear-gradient(113deg,#3c291b 0%, #49301d 28%, #2b1c13 67%, #3c2518 100%);
+  box-shadow: inset 0 0 110px rgba(0,0,0,.45), inset 0 2px 10px rgba(0,0,0,.32), 0 34px 90px rgba(0,0,0,.4);
+}
+.quest-board-shell::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  border: 1px solid rgba(223,169,100,.14);
+  box-shadow: inset 0 0 55px rgba(0,0,0,.22);
+}
+.quest-board-shell::after {
+  content: "POSTED CONTRACTS";
+  position: absolute;
+  bottom: 19px;
+  right: 35px;
+  pointer-events: none;
+  transform: rotate(-2deg);
+  color: rgba(226,185,126,.25);
+  font: 600 12px/1 Cinzel, serif;
+  letter-spacing: .22em;
+}
+.board-seal {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  top: 21px;
+  right: 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #71502b;
+  box-shadow: inset 0 0 0 4px #3d2a1b, 0 2px 5px rgba(0,0,0,.45);
+  background: #c3a067;
+}
+.board-rail { height: 7px; opacity: .78; }
+.board-rail.top { top: -7px; }
+.board-rail.bottom { bottom: -7px; }
+.quest-paper,
+.card-main, .card-side, .card-contract {
+  position: relative;
+  inset: auto;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  padding: clamp(21px, 2.4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  box-shadow: 6px 15px 28px rgba(0,0,0,.39), 0 32px 45px rgba(0,0,0,.17);
+  transform: var(--rest-position);
+  transform-origin: 50% 15%;
+}
+.quest-paper .pin { pointer-events: none; }
+.card-main {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  --rest-position: translate3d(-3px,9px,0) rotate(-1.65deg);
+  --entry-position: translate3d(-135vw,180px,0) rotate(-15deg) scale(1.07);
+  z-index: 2;
+  background: linear-gradient(142deg,#f1dfb9,#d9ba85);
+}
+.card-side {
+  grid-column: 2;
+  grid-row: 1;
+  width: 94%;
+  margin-left: 4%;
+  --rest-position: translate3d(7px,-3px,0) rotate(2.2deg);
+  --entry-position: translate3d(112vw,-130px,0) rotate(16deg) scale(1.06);
+  z-index: 3;
+  background: linear-gradient(140deg,#e8d7b6,#d1b283);
+}
+.card-contract {
+  grid-column: 2;
+  grid-row: 2;
+  width: 96%;
+  margin-left: 0;
+  --rest-position: translate3d(-9px,14px,0) rotate(-1.3deg);
+  --entry-position: translate3d(94vw,165px,0) rotate(-13deg) scale(1.06);
+  z-index: 2;
+  background: linear-gradient(150deg,#eadcc1,#d6bc90);
+}
+.card-main .pin { left: 62%; }
+.card-side .pin { left: 19%; }
+.card-contract .pin { left: 78%; }
+.quest-paper h3 { font-size: clamp(24px, 2.6vw, 34px); line-height: 1.13; overflow-wrap: break-word; }
+.quest-paper .quest-body { font-size: 18px; line-height: 1.48; }
+.quest-paper .quest-detail { margin-bottom: 18px; }
+.quest-paper .image-frame { margin-bottom: 22px; }
+.quest-paper .quest-tag-row { flex-wrap: wrap; gap: 6px 12px; margin-top: 12px; margin-bottom: 18px; }
+.project-cta { display: inline-flex; margin-top: auto; padding: 10px 0 2px; align-self: flex-start; }
+.project-title-link { color: inherit; text-decoration: none; }
+.project-title-link:hover, .project-title-link:focus-visible { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.project-cover-link { display: block; width: 100%; text-decoration: none; cursor: pointer; }
+.project-cover-link:hover { filter: brightness(1.06); }
+.project-cover-link:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+.project-cover-link .original-quest-cover { min-height: 248px; }
+.quest-paper .image-placeholder.project-media { min-height: 180px; }
+.quest-paper .image-frame.large .original-quest-cover { min-height: 248px; }
+.chapter-mark { display: none !important; }
+
+/* An arrival animation that settles at each paper's own skewed resting position. */
+.js-enabled .quest-board-shell:not(.is-revealed) .quest-paper {
+  opacity: 0;
+  transform: var(--entry-position);
+  pointer-events: none;
+}
+.js-enabled .quest-board-shell.is-revealed .quest-paper {
+  opacity: 1;
+  transform: var(--rest-position);
+  pointer-events: auto;
+  transition:
+    transform 1120ms cubic-bezier(.18,.88,.17,1.02),
+    opacity 680ms ease-out,
+    box-shadow 220ms ease;
+  transition-delay: var(--arrival-delay,0ms);
+}
+.js-enabled .quest-board-shell.is-revealed .quest-paper:hover {
+  box-shadow: 0 30px 85px rgba(0,0,0,.5);
+}
+/* Ordinary non-board sections keep a simple scroll reveal. */
+.reveal-on-scroll { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-enabled .reveal-on-scroll:not(.in-view) { opacity: 0; }
+  .js-enabled .reveal-on-scroll:not(.in-view) { transform: translate3d(0,34px,0); }
+  .js-enabled .reveal-on-scroll.in-view { opacity: 1; transform: translate3d(0,0,0); transition: transform 700ms ease,opacity 650ms ease; }
+}
+@media (max-width: 900px) {
+  .board-scene { padding: calc(var(--header-h) + 56px) 14px 86px; }
+  .board-sticky { padding: 0; }
+  .board-heading { position: relative; width: min(100%,760px); margin: 0 auto 38px; text-align: center; }
+  .quest-board-shell {
+    width: min(100%, 720px);
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 38px;
+    padding: 45px 30px 65px;
+    margin: auto;
+  }
+  .card-main,.card-side,.card-contract {
+    grid-column: 1;
+    grid-row: auto;
+    margin: 0;
+    width: 100%;
+  }
+  .card-main { --rest-position: rotate(-1.1deg); --entry-position: translate3d(-80vw,50px,0) rotate(-10deg); }
+  .card-side { --rest-position: rotate(1.35deg); --entry-position: translate3d(80vw,60px,0) rotate(11deg); }
+  .card-contract { --rest-position: rotate(-.8deg); --entry-position: translate3d(-80vw,55px,0) rotate(-8deg); }
+  /* The compact board below controls states at all viewport widths. */
+}
+@media (max-width: 620px) {
+  .quest-board-shell { padding: 37px 20px 54px; gap: 30px; border-width: 7px; }
+  .board-heading h2 { font-size: clamp(43px, 12vw, 68px); }
+  .quest-paper,.card-main,.card-side,.card-contract { padding: 20px; }
+  .quest-paper .image-placeholder.project-media { min-height: 145px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-enabled .quest-board-shell .quest-paper {
+    transform: var(--rest-position) !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+    transition: none !important;
+  }
+}
+
+/* Portfolio showreel, embedded only when an actual video is supplied. */
+.earlier-work-section { padding: 110px 20px 115px; }
+.earlier-work-wrap { width: min(100%, 1200px); }
+.earlier-work-heading { margin-bottom: 36px; }
+.showreel-feature {
+  display: grid;
+  grid-template-columns: minmax(230px,.8fr) minmax(0,1.5fr);
+  gap: 28px;
+  align-items: center;
+  padding: clamp(24px, 4vw, 48px);
+  margin-bottom: 22px;
+}
+.showreel-copy h3 { font-size: clamp(27px,3vw,43px); line-height: 1.15; }
+.showreel-copy p { color: var(--ink-soft); font-size: 19px; line-height: 1.5; }
+.showreel-label { font: 600 11px/1.5 Inter, sans-serif; color: var(--red); text-transform: uppercase; letter-spacing: .09em; }
+.showreel-media {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg,#30251c,#161110);
+  border: 7px solid #b89a64;
+  outline: 1px solid #8c6b3d;
+  overflow: hidden;
+}
+.showreel-media video { display: none; width: 100%; height: 100%; object-fit: contain; background: #0a0a0a; }
+.showreel-media.has-video video { display: block; }
+.showreel-media.has-video .showreel-placeholder { display: none; }
+.showreel-placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #f0d6a7;
+  text-align: center;
+  padding: 25px;
+}
+.play-glyph { font-size: 27px; color: #d2a35f; }
+.showreel-placeholder strong { font: 600 clamp(17px,2vw,24px)/1.2 Cinzel,serif; }
+.showreel-placeholder small { font: 11px/1.4 Inter,sans-serif; opacity: .7; }
+.earlier-work-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; }
+.earlier-work-card { display: flex; flex-direction: column; padding: clamp(20px,3vw,28px); }
+.earlier-work-card h3 { font-size: clamp(25px,2.4vw,32px); line-height: 1.18; }
+.earlier-work-card .project-cta { margin-top: auto; }
+.earlier-work-card .image-placeholder.project-media { min-height: 220px; }
+.earlier-work-card .image-frame { margin-bottom: 18px; }
+@media (max-width: 760px) {
+  .earlier-work-section { padding: 75px 14px 85px; }
+  .showreel-feature { grid-template-columns: 1fr; gap: 18px; }
+  .earlier-work-grid { grid-template-columns: 1fr; }
+}
+
+/* About is deliberately not a sticky overlapping scene. */
+.scribe-scene { height: auto; padding: 110px 18px 120px; }
+.scribe-sticky { position: relative; height: auto; min-height: 0; overflow: visible; display: block; padding: 0; }
+.scribe-title {
+  position: relative;
+  inset: auto;
+  width: min(100%, 900px);
+  margin: 0 auto 48px;
+  text-align: center;
+  transform: none;
+  opacity: 1;
+  color: #ead6ad;
+}
+.dossier-stage {
+  width: min(100%,1140px);
+  height: auto;
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(220px, .65fr) minmax(0,1.65fr);
+  align-items: start;
+  gap: clamp(24px,3vw,42px);
+}
+.portrait-card,
+.dossier {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  transform: none;
+  height: auto;
+}
+.portrait-card { padding: 20px; }
+.portrait-placeholder { aspect-ratio: 4/5; }
+.dossier { padding: clamp(34px,4vw,56px); }
+.dossier h2 { padding-right: 12px; font-size: clamp(29px,3.35vw,48px); }
+.dossier-grid { gap: 28px; }
+.dossier-column ul { line-height: 1.64; }
+@media (max-width: 900px) {
+  .scribe-scene { padding: 82px 14px 90px; }
+  .scribe-sticky { padding: 0; }
+  .scribe-title { position: relative; margin: 0 auto 28px; width: min(100%,720px); }
+  .dossier-stage { width: min(100%,720px); grid-template-columns: 1fr; }
+  .portrait-card { width: min(350px,100%); margin: 0 auto; }
+  .dossier { width: 100%; padding: 32px 28px; }
+}
+@media (max-width: 760px) {
+  .nav a.active::after { display: none; }
+  .nav a.active { background: rgba(215,184,131,.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll, .reveal-on-scroll:not(.in-view), .reveal-on-scroll.in-view { transform: none !important; opacity: 1 !important; transition: none !important; }
+}
+
+/* Never crop screenshots in the student section. */
+.earlier-work-card .project-media.has-image { min-height: 0 !important; }
+.earlier-work-card .project-media img { max-height: 270px; }
+/* Static ambience for visitors who disable animations. */
+@media (prefers-reduced-motion: reduce) { .light-pool { animation: none; } }
+
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .js-enabled .portrait-card.in-view { transform: rotate(-1.4deg); }
+  .js-enabled .dossier.in-view { transform: rotate(.5deg); }
+}
+
+/* ========================================================
+   COMPACT PINNED BOARDS | November 2026
+   No tape, flexible card content, and reversible motion.
+   ======================================================== */
+
+/* Ambient motes are rendered separately so they never move in one robotic layer. */
+.dust-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .82;
+  pointer-events: none;
+}
+
+
+.board-scene {
+  padding: clamp(85px, 8vw, 116px) 18px 74px;
+}
+.board-heading { margin-bottom: 34px; }
+.board-heading h2 { font-size: clamp(44px, 5.8vw, 74px); }
+.quest-board-shell {
+  width: min(100%, 1090px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1.02fr);
+  grid-template-rows: auto;
+  align-items: start;
+  column-gap: 0;
+  row-gap: 0;
+  padding: 35px 32px 44px;
+  border-width: 7px;
+  background:
+    radial-gradient(ellipse at 20% 28%, rgba(198,145,82,.11), transparent 45%),
+    repeating-linear-gradient(90deg, transparent 0 167px, rgba(10,4,1,.12) 168px 170px, rgba(215,150,81,.07) 172px 174px, transparent 175px 340px),
+    repeating-linear-gradient(0deg, rgba(215,174,108,.021) 0 1px, transparent 2px 28px),
+    linear-gradient(110deg, #3a2418, #4a2f1d 47%, #2e1b13 100%);
+}
+.quest-board-shell::after { font-size: 9px; right: 20px; bottom: 12px; }
+.quest-board-shell .quest-paper {
+  grid-row: 1;
+  position: relative;
+  width: calc(100% + 14px);
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: clamp(15px, 1.7vw, 22px);
+  transform-origin: 50% 18%;
+}
+.quest-board-shell .card-main {
+  grid-column: 1;
+  z-index: 4;
+  --rest-position: translate3d(-7px, 1px,0) rotate(-2.2deg);
+  --entry-position: translate3d(-110vw,100px,0) rotate(-17deg) scale(1.07);
+  --exit-position: translate3d(-96vw,-105px,0) rotate(-18deg) scale(.94);
+}
+.quest-board-shell .card-side {
+  grid-column: 2;
+  z-index: 3;
+  --rest-position: translate3d(-2px,22px,0) rotate(2.6deg);
+  --entry-position: translate3d(100vw,-140px,0) rotate(17deg) scale(1.08);
+  --exit-position: translate3d(95vw,-160px,0) rotate(15deg) scale(.91);
+}
+.quest-board-shell .card-contract {
+  grid-column: 3;
+  z-index: 2;
+  --rest-position: translate3d(-8px,12px,0) rotate(-1.6deg);
+  --entry-position: translate3d(105vw,135px,0) rotate(13deg) scale(1.07);
+  --exit-position: translate3d(100vw,140px,0) rotate(15deg) scale(.93);
+}
+.quest-board-shell .quest-paper h3 { font-size: clamp(22px,2vw,27px); }
+.quest-board-shell .quest-paper .quest-body { font-size: 16px; line-height: 1.38; }
+.quest-board-shell .quest-paper .quest-meta { font-size: 8px; line-height: 1.55; }
+.quest-board-shell .quest-paper .quest-tag-row { font-size: 8px; margin-bottom: 10px; }
+.quest-board-shell .quest-paper .image-frame { margin-bottom: 13px; padding: 5px; }
+.quest-board-shell .quest-paper .original-quest-cover,
+.quest-board-shell .quest-paper .image-frame.large .original-quest-cover { min-height: 165px; padding: 15px; }
+.quest-board-shell .quest-paper .original-quest-cover strong { font-size: clamp(27px, 2.8vw, 37px); }
+.quest-board-shell .quest-paper .image-placeholder.project-media { min-height: 140px; }
+.quest-board-shell .quest-paper .quest-detail { padding: 9px 0; margin: 10px 0; }
+.quest-board-shell .quest-paper .quest-detail strong { font-size: 15px; line-height: 1.3; }
+.quest-board-shell .quest-paper .project-cta { font-size: 16px; padding-top: 4px; }
+.quest-board-shell .quest-paper .project-media img { max-height: 205px; }
+
+/* Resting papers stay legible; departing papers leave in different directions. */
+.js-enabled .quest-board-shell:not(.is-revealed) .quest-paper {
+  transform: var(--entry-position);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 880ms cubic-bezier(.35,.05,.72,.27), opacity 560ms ease;
+  transition-delay: 0ms;
+}
+.js-enabled .quest-board-shell.is-departing:not(.is-revealed) .quest-paper {
+  transform: var(--exit-position);
+}
+.js-enabled .quest-board-shell.is-revealed .quest-paper {
+  transform: var(--rest-position);
+  transition: transform 1000ms cubic-bezier(.17,.83,.18,1), opacity 640ms ease;
+  transition-delay: var(--arrival-delay, 0ms);
+}
+
+/* Second board for student work. The video stays a video, no poster required. */
+.earlier-work-section { padding: 68px 18px 98px; }
+.earlier-work-wrap { width: min(100%, 1050px); }
+.earlier-work-heading { margin-bottom: 26px; }
+.student-board-shell {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  padding: 38px 32px 37px;
+  border: 7px solid #3b2619;
+  border-radius: 5px;
+  background:
+    radial-gradient(ellipse at 68% 21%, rgba(205,153,93,.10), transparent 45%),
+    repeating-linear-gradient(90deg, transparent 0 185px, rgba(9,4,2,.15) 186px 188px, rgba(205,140,70,.065) 190px 193px, transparent 194px 355px),
+    linear-gradient(120deg, #352217, #49301f 45%, #302016);
+  box-shadow: inset 0 0 85px rgba(0,0,0,.43), 0 30px 65px rgba(0,0,0,.38);
+}
+.student-board-shell::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  border: 1px solid rgba(223,169,100,.14);
+}
+.student-board-shell .showreel-feature,
+.student-board-shell .earlier-work-card {
+  position: relative;
+  transform-origin: 50% 15%;
+  box-shadow: 6px 15px 28px rgba(0,0,0,.38),0 22px 40px rgba(0,0,0,.15);
+}
+.student-board-shell .showreel-feature {
+  width: 98%;
+  max-width: 100%;
+  margin: 0 auto;
+  z-index: 2;
+  padding: clamp(20px, 2.5vw, 30px);
+  --rest-position: translate3d(0,0,0) rotate(-.8deg);
+  --entry-position: translate3d(-100vw,50px,0) rotate(-13deg) scale(1.05);
+  --exit-position: translate3d(-92vw,-85px,0) rotate(-13deg);
+}
+.student-board-shell .earlier-work-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+  width: 94%;
+  margin: -7px auto 0;
+  z-index: 3;
+}
+.student-board-shell .earlier-work-card { padding: 22px 22px 19px; }
+.student-board-shell .earlier-work-card:first-child {
+  --rest-position: translate3d(-3px,11px,0) rotate(1.6deg);
+  --entry-position: translate3d(-100vw,110px,0) rotate(-15deg) scale(1.04);
+  --exit-position: translate3d(-92vw,110px,0) rotate(-13deg);
+}
+.student-board-shell .earlier-work-card:last-child {
+  --rest-position: translate3d(5px,0,0) rotate(-1.9deg);
+  --entry-position: translate3d(100vw,120px,0) rotate(15deg) scale(1.04);
+  --exit-position: translate3d(96vw,90px,0) rotate(15deg);
+}
+.student-board-shell .pin { z-index: 5; top: 11px; }
+.student-board-shell .showreel-feature .pin { left: 48%; }
+.student-board-shell .earlier-work-card:first-child .pin { left: 21%; }
+.student-board-shell .earlier-work-card:last-child .pin { left: 78%; }
+.student-board-shell .showreel-feature { --arrival-delay: 80ms; }
+.student-board-shell .earlier-work-card:first-child { --arrival-delay: 270ms; }
+.student-board-shell .earlier-work-card:last-child { --arrival-delay: 410ms; }
+.student-board-shell .showreel-media { border-width: 5px; }
+.student-board-shell .earlier-work-card .image-placeholder.project-media { min-height: 130px; }
+.student-board-shell .earlier-work-card .project-media img { max-height: 190px; }
+.js-enabled .student-board-shell:not(.is-revealed) .showreel-feature,
+.js-enabled .student-board-shell:not(.is-revealed) .earlier-work-card {
+  transform: var(--entry-position);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 880ms cubic-bezier(.35,.05,.72,.27), opacity 560ms ease;
+  transition-delay: 0ms;
+}
+.js-enabled .student-board-shell.is-departing:not(.is-revealed) .showreel-feature,
+.js-enabled .student-board-shell.is-departing:not(.is-revealed) .earlier-work-card { transform: var(--exit-position); }
+.js-enabled .student-board-shell.is-revealed .showreel-feature,
+.js-enabled .student-board-shell.is-revealed .earlier-work-card {
+  transform: var(--rest-position);
+  opacity: 1;
+  pointer-events: auto;
+  transition: transform 1000ms cubic-bezier(.17,.83,.18,1), opacity 640ms ease;
+  transition-delay: var(--arrival-delay,0ms);
+}
+
+/* Each layout has safe margins even with the hand-pinned rotations. */
+@media (max-width: 900px) {
+  .board-scene { padding: calc(var(--header-h) + 37px) 14px 60px; }
+  .board-heading { margin-bottom: 29px; }
+  .quest-board-shell {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-rows: auto auto;
+    gap: 18px 0;
+    padding: 30px 26px 45px;
+    width: min(100%,760px);
+  }
+  .quest-board-shell .card-main { grid-column: 1 / -1; grid-row: 1; width: min(88%,440px); margin: auto; }
+  .quest-board-shell .card-side { grid-column: 1; grid-row: 2; width: 105%; margin: 0; }
+  .quest-board-shell .card-contract { grid-column: 2; grid-row: 2; width: 105%; margin: 0 0 0 -5%; }
+  .quest-board-shell .card-main { --rest-position: rotate(-1.4deg); }
+  .quest-board-shell .card-side { --rest-position: rotate(1.4deg); }
+  .quest-board-shell .card-contract { --rest-position: rotate(-1.2deg); }
+  .student-board-shell { padding: 30px 24px 35px; }
+}
+@media (max-width: 620px) {
+  .board-scene { padding: calc(var(--header-h) + 29px) 12px 54px; }
+  .quest-board-shell { display: grid; grid-template-columns: 1fr; padding: 27px 20px 32px; gap: 12px; border-width: 6px; }
+  .quest-board-shell .card-main,
+  .quest-board-shell .card-side,
+  .quest-board-shell .card-contract {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    margin: 0;
+  }
+  .quest-board-shell .card-side { margin-top: -5px; }
+  .quest-board-shell .card-contract { margin-top: -5px; }
+  .quest-board-shell .quest-paper { width: 100%; }
+  .student-board-shell { padding: 25px 17px 34px; border-width: 6px; }
+  .student-board-shell .showreel-feature { grid-template-columns: 1fr; gap: 12px; padding: 20px; }
+  .student-board-shell .earlier-work-grid { grid-template-columns: 1fr; width: 100%; gap: 14px; margin-top: 12px; }
+  .student-board-shell .earlier-work-card { padding: 19px; }
+  .student-board-shell .showreel-feature,
+  .student-board-shell .earlier-work-card { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-enabled .quest-board-shell .quest-paper,
+  .js-enabled .student-board-shell .showreel-feature,
+  .js-enabled .student-board-shell .earlier-work-card {
+    transform: var(--rest-position) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: none !important;
+  }
+  .dust-field { display: none; }
+}
+
+/* Older 900px breakpoint forced transform:none on every paper.
+   Override it so mobile menu navigation still replays the flight. */
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .js-enabled .quest-board-shell:not(.is-revealed) .quest-paper {
+    transform: var(--entry-position) !important;
+    opacity: 0 !important;
+  }
+  .js-enabled .quest-board-shell.is-departing:not(.is-revealed) .quest-paper {
+    transform: var(--exit-position) !important;
+  }
+  .js-enabled .quest-board-shell.is-revealed .quest-paper {
+    transform: var(--rest-position) !important;
+    opacity: 1 !important;
+  }
+  .js-enabled .student-board-shell:not(.is-revealed) .showreel-feature,
+  .js-enabled .student-board-shell:not(.is-revealed) .earlier-work-card {
+    transform: var(--entry-position) !important;
+    opacity: 0 !important;
+  }
+  .js-enabled .student-board-shell.is-departing:not(.is-revealed) .showreel-feature,
+  .js-enabled .student-board-shell.is-departing:not(.is-revealed) .earlier-work-card {
+    transform: var(--exit-position) !important;
+  }
+  .js-enabled .student-board-shell.is-revealed .showreel-feature,
+  .js-enabled .student-board-shell.is-revealed .earlier-work-card {
+    transform: var(--rest-position) !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/* ========================================================
+   HERO NOTICE | Pinned parchment opening scene
+   The entrance stays editorial and legible. Scroll choreography
+   is controlled from script.js on wide, motion-enabled screens.
+   ======================================================== */
+.hero-scene .scene-sticky { isolation: isolate; }
+.hero-paper {
+  --light-x: 50%;
+  --light-y: 20%;
+  --paper-lift: 0;
+  z-index: 3;
+  transform-origin: 50% 8%;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 22px 22px rgba(0,0,0,.13));
+  border-color: rgba(136,93,43,.44);
+  background:
+    radial-gradient(ellipse at 14% 4%, rgba(255,255,255,.27), transparent 32%),
+    radial-gradient(ellipse at 93% 88%, rgba(104,64,24,.09), transparent 26%),
+    linear-gradient(145deg, #eddbb7, #dfc292);
+}
+.hero-paper::before {
+  /* Handled as very low-contrast wrinkles and paper grain. */
+  background:
+    linear-gradient(111deg, transparent 0 3%, rgba(97,58,20,.075) 3.14%, rgba(255,255,255,.11) 3.45%, transparent 4% 96%, rgba(112,74,29,.07) 97%, transparent 99%),
+    linear-gradient(4deg, transparent 0 6%, rgba(107,72,27,.06) 6.3%, rgba(255,255,255,.08) 6.6%, transparent 7.2% 92%, rgba(95,61,22,.04) 92.4%, transparent 93%),
+    repeating-linear-gradient(0deg, transparent 0 9px, rgba(76,44,16,.012) 9px 10px);
+  opacity: .65;
+}
+.hero-paper-light {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle 270px at var(--light-x) var(--light-y), rgba(255,248,225,.25), transparent 78%);
+  mix-blend-mode: screen;
+}
+.hero-paper > :not(.hero-paper-light):not(.hero-pin):not(.hero-stamp):not(.scribble) {
+  position: relative;
+  z-index: 2;
+}
+.hero-paper .section-kicker { margin-bottom: 20px; }
+.hero-paper .lead { max-width: 700px; }
+.hero-paper .hero-actions { position: relative; z-index: 6; }
+.hero-stamp {
+  position: absolute !important;
+  z-index: 3;
+  right: clamp(34px, 5vw, 65px);
+  top: clamp(27px, 4vw, 52px);
+  width: 112px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px double rgba(126,45,32,.46);
+  outline: 1px solid rgba(126,45,32,.27);
+  outline-offset: -6px;
+  color: rgba(116,38,30,.64);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  transform: rotate(11deg);
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 4px, rgba(96,33,28,.028) 4px 5px);
+}
+/* A wider pin head, a recessed hole, and a short metal shank. */
+.hero-paper .hero-pin {
+  top: 16px;
+  width: 21px;
+  height: 21px;
+  z-index: 8;
+  box-shadow: 0 1px 0 rgba(255,250,229,.22), 0 7px 11px rgba(40,20,12,.33), inset 0 1px 3px rgba(255,240,226,.37);
+  transform-origin: 50% 50%;
+}
+.hero-paper .hero-pin::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  top: 8px;
+  left: 7px;
+  background: rgba(48,10,8,.25);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.2), 0 1px 0 rgba(255,236,207,.24);
+}
+.hero-paper .hero-pin::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 18px;
+  top: 12px;
+  left: 9px;
+  z-index: -1;
+  border-radius: 3px;
+  background: linear-gradient(90deg,#796c5b,#d7c6a0,#645745);
+  transform: rotate(-8deg);
+  box-shadow: 2px 3px 3px rgba(44,23,14,.22);
+}
+.hero-backboard {
+  position: absolute;
+  z-index: 1;
+  width: min(940px, calc(100vw - 32px));
+  height: min(750px, 76vh);
+  inset: 50% auto auto 50%;
+  transform: translate(-50%,-50%) rotate(-.6deg);
+  opacity: .04;
+  pointer-events: none;
+  border: 10px solid rgba(18,9,5,.65);
+  box-shadow: inset 0 0 95px rgba(0,0,0,.38), 0 20px 55px rgba(0,0,0,.17);
+  background:
+    radial-gradient(ellipse at 37% 33%, rgba(224,163,92,.12), transparent 62%),
+    repeating-linear-gradient(90deg, transparent 0 173px, rgba(12,4,1,.21) 175px 178px, rgba(255,218,149,.04) 179px 182px, transparent 183px 348px),
+    repeating-linear-gradient(0deg, transparent 0 19px, rgba(195,130,62,.034) 20px 21px, transparent 22px 43px),
+    linear-gradient(135deg, #463020, #2e1d13 60%, #493022);
+}
+.hero-backboard::before,
+.hero-backboard::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #98795b, #29170c);
+  top: 16px;
+  box-shadow: 0 2px 5px #140904;
+}
+.hero-backboard::before { left: 17px; }
+.hero-backboard::after { right: 17px; }
+.hero-scene .hero-glow { z-index: 0; }
+@media (min-width: 901px) {
+  .hero-paper h1 { max-width: 740px; }
+  .hero-paper .section-kicker { padding-right: 145px; }
+}
+@media (max-width: 900px) {
+  /* On touch devices, avoid forcing visitors through a long sticky animation. */
+  .hero-backboard { display: none; }
+  .hero-paper { filter: drop-shadow(0 10px 18px rgba(0,0,0,.18)) !important; }
+  .hero-paper .hero-pin { transform: translateX(-50%) !important; opacity: 1 !important; }
+  .hero-paper .hero-stamp { width: 85px; height: 52px; font-size: 8px; right: 19px; top: 17px; }
+  .hero-paper .section-kicker { padding-right: 92px; }
+}
+@media (max-width: 430px) {
+  .hero-paper .hero-stamp { width: 76px; height: 47px; top: 16px; right: 16px; font-size: 7px; }
+  .hero-paper .section-kicker { padding-right: 85px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-paper, .hero-paper .hero-pin, .hero-backboard { transition: none !important; }
+  .hero-paper { filter: none !important; }
+  .hero-backboard { opacity: 0 !important; }
 }

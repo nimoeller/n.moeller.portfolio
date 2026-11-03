@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Quest and Mission Design Portfolio" />
-  <title>Niklas | Quest & Mission Designer</title>
+  <title>Niklas | Game Designer · Quest & Mission Design</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +18,7 @@
     <div class="vignette"></div>
     <div class="light-pool light-a"></div>
     <div class="light-pool light-b"></div>
-    <div class="dust dust-a"></div>
-    <div class="dust dust-b"></div>
+    <canvas class="dust-field" id="dustField"></canvas>
   </div>
 
   <header class="site-header">
@@ -36,6 +35,7 @@
       <nav class="nav" id="nav-panel">
         <a href="#hero">Home</a>
         <a href="#quest-board">Projects</a>
+        <a href="#earlier-work">Showreel</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -48,9 +48,12 @@
     <section class="scene hero-scene" id="hero">
       <div class="scene-sticky">
         <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-backboard" id="heroBackboard" aria-hidden="true"></div>
 
         <article class="parchment torn hero-paper" id="heroPaper">
-          <span class="pin red"></span>
+          <span class="hero-paper-light" aria-hidden="true"></span>
+          <span class="pin red hero-pin" id="heroPin" aria-hidden="true"></span>
+          <span class="hero-stamp" aria-label="Available for hire"><span>Available</span><span>for hire</span></span>
 
           <p class="section-kicker">Guild Notice</p>
           <h1>I design quests players want to finish.</h1>
@@ -75,203 +78,196 @@
       </div>
     </section>
 
-    <!-- QUEST BOARD SCENE -->
-    <section class="scene board-scene" id="quest-board">
-      <div class="scene-sticky board-sticky">
-        <div class="board-heading" id="boardHeading">
+    <!-- PROJECTS : normal-flow notice board, no card overlap -->
+    <section class="scene board-scene" id="quest-board" aria-labelledby="projects-heading">
+      <div class="board-sticky">
+        <div class="board-heading">
           <p class="section-kicker">Portfolio</p>
-          <h2>Projects</h2>
-          <p>Quest design studies, professional game design work and selected earlier projects.</p>
+          <h2 id="projects-heading">Projects</h2>
+          <p>Original quest design, a quest deconstruction and professional game development work.</p>
         </div>
 
-        <div class="quest-board-shell">
-          <div class="board-rail top"></div>
-          <div class="board-rail bottom"></div>
+        <div class="quest-board-shell" id="projectNoticeBoard">
+          <span class="board-seal" aria-hidden="true"></span>
+          <div class="board-rail top" aria-hidden="true"></div>
+          <div class="board-rail bottom" aria-hidden="true"></div>
 
-          <article class="quest-paper parchment card-main case-study-card" id="questMain">
-            <span class="pin brass"></span>
-
-            <div class="quest-tag-row">
-              <span>Quest Design Case Study</span>
-              <span>Deconstruction + Redesign</span>
-            </div>
-
-            <div class="image-frame large">
-              <div class="image-placeholder project-media" data-fallback="Uses case-studies/heroes/assets/images/heroes-hero.jpg">
-                <img src="case-studies/heroes/assets/images/heroes-hero.jpg" alt="Cyberpunk 2077 Heroes quest deconstruction" />
-                <span>Heroes case study</span>
+          <article class="quest-paper parchment card-main" style="--arrival-delay:100ms">
+            <span class="pin brass" aria-hidden="true"></span>
+            <div class="quest-tag-row"><span>01 · Quest Concept</span><span>Open World RPG</span></div>
+            <a class="image-frame project-cover-link" href="case-studies/sisters-in-spirit/" aria-label="Open Sisters in Spirit quest concept">
+              <div class="original-quest-cover">
+                <span>Original Quest Concept</span>
+                <strong>Sisters in<br>Spirit</strong>
+                <small>Investigation · Consequence · Choice</small>
               </div>
-            </div>
-
-            <h3>Cyberpunk 2077: Heroes</h3>
-            <p class="quest-meta">Quest Structure · Player Agency · Narrative Pacing · Branching</p>
-            <p class="quest-body">
-              A visual deconstruction of Heroes, including a third branch that turns postponing a decision into a meaningful consequence.
-            </p>
-
-            <div class="quest-detail">
-              <span>Design Focus</span>
-              <strong>Quest logic, expressive choice, pacing and consequence.</strong>
-            </div>
-
-            <div class="margin-note">Analysis first. Then push the design further.</div>
-            <a href="case-studies/heroes/" class="text-link">View case study →</a>
+            </a>
+            <h3><a class="project-title-link" href="case-studies/sisters-in-spirit/">Sisters in Spirit</a></h3>
+            <p class="quest-meta">Open World · Quest Structure · Optional Investigation</p>
+            <p class="quest-body">A supernatural contract that can be completed without ever uncovering the human crimes behind it.</p>
+            <div class="quest-detail"><span>Design Focus</span><strong>Discovery, persistent world states and moral choice.</strong></div>
+            <a class="text-link project-cta" href="case-studies/sisters-in-spirit/">View quest concept →</a>
           </article>
 
-          <article class="quest-paper parchment card-side" id="questSide">
-            <span class="pin red"></span>
-
-            <div class="quest-tag-row">
-              <span>Earlier Work</span>
-              <span>Student Projects</span>
-            </div>
-
-            <div class="image-frame">
-              <div class="image-placeholder project-media" data-fallback="Add assets/images/projects/student-projects/student-work-cover.jpg">
-                <img src="assets/images/projects/student-projects/student-work-cover.jpg" alt="Selected student game design work" />
-                <span>Student project image</span>
+          <article class="quest-paper parchment card-side" style="--arrival-delay:310ms">
+            <span class="pin red" aria-hidden="true"></span>
+            <div class="quest-tag-row"><span>02 · Quest Analysis</span><span>Deconstruction</span></div>
+            <a class="image-frame project-cover-link" href="case-studies/heroes/" aria-label="Open Cyberpunk 2077 Heroes quest deconstruction">
+              <div class="image-placeholder project-media" data-fallback="Add heroes-hero.jpg">
+                <img src="case-studies/heroes/assets/images/heroes-hero.jpg" alt="Screenshot from Cyberpunk 2077 Heroes" loading="lazy" />
+                <span>Cyberpunk 2077<br>Heroes</span>
               </div>
-            </div>
-
-            <h3>Selected Student Work</h3>
-            <p class="quest-meta">Game Design · Prototypes · Gameplay</p>
-            <p class="quest-body">
-              Earlier hands-on game projects selected for the design work, prototypes and gameplay material that still support my current portfolio.
-            </p>
-
-            <div class="quest-detail">
-              <span>Focus</span>
-              <strong>Additional evidence of practical game design and development work.</strong>
-            </div>
-
-            <a href="#earlier-work" class="text-link">View earlier work →</a>
+            </a>
+            <h3><a class="project-title-link" href="case-studies/heroes/">Cyberpunk 2077: Heroes</a></h3>
+            <p class="quest-meta">Quest Analysis · Branching · Narrative Pacing</p>
+            <p class="quest-body">A visual deconstruction with an original third-branch redesign focused on consequences of inaction.</p>
+            <div class="quest-detail"><span>Design Focus</span><strong>Player agency, quest logic and narrative consequence.</strong></div>
+            <a class="text-link project-cta" href="case-studies/heroes/">View quest analysis →</a>
           </article>
 
-          <article class="quest-paper parchment card-contract" id="questContract">
-            <span class="pin brass"></span>
-
-            <div class="quest-tag-row">
-              <span>Professional Project</span>
-              <span>Game Design</span>
-            </div>
-
-            <div class="image-frame">
-              <div class="image-placeholder project-media" data-fallback="Add assets/images/projects/almos/almos-cover.jpg">
-                <img src="assets/images/projects/almos/almos-cover.jpg" alt="Almos: A Dream Painter's Tale project screenshot" />
-                <span>Almos project image</span>
+          <article class="quest-paper parchment card-contract" style="--arrival-delay:520ms">
+            <span class="pin brass" aria-hidden="true"></span>
+            <div class="quest-tag-row"><span>03 · Professional Work</span><span>Game Design</span></div>
+            <a class="image-frame project-cover-link" href="https://store.steampowered.com/app/4839850/Almos_A_Dream_Painters_Tale/" target="_blank" rel="noopener noreferrer" aria-label="Visit Almos: A Dream Painter's Tale on Steam">
+              <div class="image-placeholder project-media" data-fallback="Add almos-cover.jpg">
+                <img src="assets/images/projects/almos/almos-cover.jpg" alt="Almos: A Dream Painter's Tale" loading="lazy" />
+                <span>Almos<br>A Dream Painter's Tale</span>
               </div>
-            </div>
-
-            <h3>Almos: A Dream Painter's Tale</h3>
-            <p class="quest-meta">CEO · Game Designer</p>
-            <p class="quest-body">
-              My most recent professional game project, included here as broader game design and production experience rather than quest design work.
-            </p>
-
-            <div class="quest-detail">
-              <span>Role</span>
-              <strong>CEO / Game Designer</strong>
-            </div>
-          </article>        </div>
-
-        <div class="chapter-mark" id="chapterMark">
-          <span>Chapter II</span>
-          <strong>The Work</strong>
+            </a>
+            <h3><a class="project-title-link" href="https://store.steampowered.com/app/4839850/Almos_A_Dream_Painters_Tale/" target="_blank" rel="noopener noreferrer">Almos: A Dream Painter's Tale</a></h3>
+            <p class="quest-meta">Professional Project · CEO / Game Designer</p>
+            <p class="quest-body">My most recent professional game project. Included for game design and production experience.</p>
+            <div class="quest-detail"><span>Role</span><strong>CEO · Game Designer</strong></div>
+            <a class="text-link project-cta" href="https://store.steampowered.com/app/4839850/Almos_A_Dream_Painters_Tale/" target="_blank" rel="noopener noreferrer">View on Steam ↗</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- SCRIBE / ABOUT SCENE -->
-    <section class="scene scribe-scene" id="about">
-      <div class="scene-sticky scribe-sticky">
+    <!-- STUDENT WORK & SHOWREEL -->
+    <section class="earlier-work-section" id="earlier-work" aria-labelledby="showreel-heading">
+      <div class="earlier-work-wrap">
+        <div class="earlier-work-heading reveal-on-scroll">
+          <p class="section-kicker">Earlier Work</p>
+          <h2 id="showreel-heading">Student Projects</h2>
+          <p>A short showreel of earlier game projects, with links to selected playable releases.</p>
+        </div>
 
-        <div class="scribe-title" id="scribeTitle">
-          <p class="section-kicker">Game Designer</p>
-          <h2>About Me</h2>
+        <div class="student-board-shell" id="studentNoticeBoard">
+          <span class="board-seal" aria-hidden="true"></span>
+          <div class="showreel-feature parchment reveal-on-scroll">
+            <span class="pin brass" aria-hidden="true"></span>
+          <div class="showreel-copy">
+            <span class="quest-meta">Project Showreel</span>
+            <h3>Selected Student Work</h3>
+            <p>A compilation of student game projects, prototypes and gameplay.</p>
+            <span class="showreel-label">Gameplay highlights and playable student work.</span>
+          </div>
+          <div class="showreel-media" id="showreelMedia">
+            <video id="studentShowreel" controls playsinline preload="metadata" aria-label="Student projects showreel">
+              <source src="assets/videos/student-showreel.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="showreel-placeholder" id="showreelPlaceholder" aria-hidden="true">
+              <span class="play-glyph">▶</span>
+              <strong>Student Project Showreel</strong>
+              <small>Place student-showreel.mp4 in assets/videos/</small>
+            </div>
+          </div>
+        </div>
+
+          <div class="earlier-work-grid">
+            <article class="earlier-work-card parchment reveal-on-scroll">
+              <span class="pin red" aria-hidden="true"></span>
+            <a class="image-frame project-cover-link" href="https://ererbe.itch.io/well-of-life" target="_blank" rel="noopener noreferrer" aria-label="Open Well of Life on itch.io">
+              <div class="image-placeholder project-media compact" data-fallback="Add well-of-life-cover.jpg">
+                <img src="assets/images/projects/student-projects/well-of-life-cover.jpg" alt="Well of Life cover" loading="lazy" />
+                <span>Well of Life</span>
+              </div>
+            </a>
+            <p class="quest-meta">Student Game · itch.io</p>
+            <h3><a class="project-title-link" href="https://ererbe.itch.io/well-of-life" target="_blank" rel="noopener noreferrer">Well of Life</a></h3>
+            <a class="text-link project-cta" href="https://ererbe.itch.io/well-of-life" target="_blank" rel="noopener noreferrer">View project ↗</a>
+          </article>
+
+            <article class="earlier-work-card parchment reveal-on-scroll" style="--reveal-delay:90ms">
+              <span class="pin brass" aria-hidden="true"></span>
+            <a class="image-frame project-cover-link" href="https://usernametojson.itch.io/tialtngo" target="_blank" rel="noopener noreferrer" aria-label="Open There Is a Light That Never Goes Out on itch.io">
+              <div class="image-placeholder project-media compact" data-fallback="Add there-is-a-light-cover.jpg">
+                <img src="assets/images/projects/student-projects/there-is-a-light-cover.jpg" alt="There Is a Light That Never Goes Out cover" loading="lazy" />
+                <span>There Is a Light<br>That Never Goes Out</span>
+              </div>
+            </a>
+            <p class="quest-meta">Student Game · itch.io</p>
+            <h3><a class="project-title-link" href="https://usernametojson.itch.io/tialtngo" target="_blank" rel="noopener noreferrer">There Is a Light That Never Goes Out</a></h3>
+            <a class="text-link project-cta" href="https://usernametojson.itch.io/tialtngo" target="_blank" rel="noopener noreferrer">View project ↗</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & SKILLS -->
+    <section class="scene scribe-scene" id="about" aria-labelledby="about-heading">
+      <div class="scribe-sticky">
+        <div class="scribe-title reveal-on-scroll">
+          <p class="section-kicker">Background & Skills</p>
+          <h2 id="about-heading">About Me</h2>
         </div>
 
         <div class="dossier-stage">
-          <article class="portrait-card parchment" id="portraitCard">
-            <span class="pin brass side-pin"></span>
-            <div class="portrait-placeholder portrait-media" data-fallback="Add assets/images/profile/niklas-moeller-portrait.jpg">
-              <img src="assets/images/profile/niklas-moeller-portrait.jpg" alt="Portrait of Niklas Möller" />
+          <article class="portrait-card parchment reveal-on-scroll" id="portraitCard">
+            <span class="pin brass side-pin" aria-hidden="true"></span>
+            <div class="portrait-placeholder portrait-media" data-fallback="Add niklas-moeller-portrait.jpg">
+              <img src="assets/images/profile/niklas-moeller-portrait.jpg" alt="Portrait of the portfolio author" loading="lazy" />
               <span>Portrait</span>
             </div>
-            <p>Game Designer · Quest & Mission Design</p>
+            <p>Game Designer · Quest &amp; Mission Design</p>
           </article>
 
-          <article class="dossier parchment torn" id="dossier">
-            <span class="wax-seal">N</span>
-
+          <article class="dossier parchment reveal-on-scroll" id="dossier" style="--reveal-delay:90ms">
             <p class="section-kicker">About</p>
-            <h2>Game design with a focus on quests and missions.</h2>
-
-            <p class="dossier-lead">
-              Game Designer with professional development experience, currently focused on Quest & Mission Design.
-              I am especially interested in structure, pacing, player motivation, narrative gameplay and meaningful choice.
-            </p>
+            <h2>Game design, with a focus on quests and missions.</h2>
+            <p class="dossier-lead">Game Designer with professional development experience, currently focused on Quest &amp; Mission Design. I enjoy designing structure, pacing, narrative gameplay and meaningful choice.</p>
 
             <div class="dossier-grid">
               <div class="dossier-column">
                 <span>Design Focus</span>
                 <ul>
-                  <li>Quest & Mission Structure</li>
-                  <li>Pacing & Player Motivation</li>
+                  <li>Quest &amp; Mission Structure</li>
+                  <li>Pacing &amp; Player Motivation</li>
                   <li>Narrative Gameplay</li>
-                  <li>Choice & Consequence</li>
+                  <li>Choice &amp; Consequence</li>
                 </ul>
               </div>
-
               <div class="dossier-column">
-                <span>Tools</span>
+                <span>Game Engines</span>
                 <ul>
                   <li>Unreal Engine</li>
+                  <li>Unity</li>
                   <li>Godot</li>
-                  <li>Twine</li>
-                  <li>Miro / Notion</li>
                 </ul>
               </div>
-
+              <div class="dossier-column">
+                <span>Documentation &amp; Planning</span>
+                <ul>
+                  <li>Jira &amp; Confluence</li>
+                  <li>ClickUp</li>
+                  <li>yEd Flowcharts</li>
+                </ul>
+              </div>
+              <div class="dossier-column">
+                <span>Version Control</span>
+                <ul>
+                  <li>Git</li>
+                  <li>Version Control Workflows</li>
+                </ul>
+              </div>
               <div class="dossier-column full">
                 <span>Approach</span>
-                <p>
-                  I like turning narrative intent into clear, playable structure and giving players reasons to care about what they do next.
-                </p>
+                <p>I like turning creative ideas into clear, playable systems and giving players reasons to care about what happens next.</p>
               </div>
             </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- EARLIER WORK -->
-    <section class="earlier-work-section" id="earlier-work">
-      <div class="earlier-work-wrap">
-        <div class="earlier-work-heading">
-          <p class="section-kicker">Selected Projects</p>
-          <h2>Earlier Work</h2>
-          <p>Selected earlier projects with useful gameplay, design or prototype material.</p>
-        </div>
-
-        <div class="earlier-work-grid">
-          <article class="earlier-work-card parchment">
-            <div class="image-placeholder project-media compact" data-fallback="Add assets/images/projects/student-projects/student-project-01-cover.jpg">
-              <img src="assets/images/projects/student-projects/student-project-01-cover.jpg" alt="Student project 01" />
-              <span>Student Project 01</span>
-            </div>
-            <p class="quest-meta">Student Project</p>
-            <h3>Project 01</h3>
-            <p>Replace this title and description with the strongest older project that has useful video or image material.</p>
-          </article>
-
-          <article class="earlier-work-card parchment">
-            <div class="image-placeholder project-media compact" data-fallback="Add assets/images/projects/student-projects/student-project-02-cover.jpg">
-              <img src="assets/images/projects/student-projects/student-project-02-cover.jpg" alt="Student project 02" />
-              <span>Student Project 02</span>
-            </div>
-            <p class="quest-meta">Student Project</p>
-            <h3>Project 02</h3>
-            <p>Use this slot for another project that demonstrates a different design or development skill.</p>
           </article>
         </div>
       </div>
@@ -280,7 +276,7 @@
     <!-- CONTACT SCENE -->
     <section class="contact-scene" id="contact">
       <div class="contact-wrap">
-        <article class="parchment torn contact-note">
+        <article class="parchment torn contact-note reveal-on-scroll">
           <span class="pin red"></span>
 
           <p class="section-kicker">New Contract Available</p>
