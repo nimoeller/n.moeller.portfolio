@@ -1192,7 +1192,8 @@ h3 {
 .project-media img,
 .portrait-media img {
   position: static;
-  display: none;
+  display: block;
+  visibility: hidden;
   width: auto;
   height: auto;
   max-width: 100%;
@@ -1208,7 +1209,7 @@ h3 {
   background: transparent;
 }
 .project-media.has-image img,
-.portrait-media.has-image img { display: block; }
+.portrait-media.has-image img { visibility: visible; }
 .project-media.has-image > span,
 .portrait-media.has-image > span { display: none; }
 .project-media > span,
