@@ -60,7 +60,10 @@
       </div>
 
       <figure class="media-frame flowchart-frame" data-fallback="Add assets/images/heroes-quest-flow.svg">
-        <img src="assets/images/heroes-quest-flow.svg" alt="Heroes quest structure flowchart" />
+        <button type="button" class="diagram-open flowchart-open" data-diagram-title="Heroes quest structure" aria-label="Enlarge Heroes quest structure" aria-haspopup="dialog">
+          <img src="assets/images/heroes-quest-flow.svg" alt="Heroes quest structure flowchart" />
+          <span class="diagram-enlarge-hint" aria-hidden="true">↗ Tap to enlarge</span>
+        </button>
       </figure>
 
       <aside class="callout">
@@ -142,6 +145,7 @@
           <span class="legend-item"><i class="legend-line line-heroes-gameplay"></i>Heroes · Gameplay</span>
         </div>
 
+        <button type="button" class="diagram-open pacing-graph-open" data-diagram-title="Pacing: The Heist &amp; Heroes" aria-label="Enlarge the pacing graph" aria-haspopup="dialog">
         <svg class="pacing-graph" viewBox="0 0 940 500" role="img" aria-label="Combined pacing graph comparing narrative and gameplay intensity for The Heist and Heroes on a scale from 0 to 10">
           <rect x="0" y="0" width="940" height="500" fill="transparent" />
 
@@ -234,6 +238,8 @@
           <text x="86" y="438" class="row-label">The Heist</text>
           <text x="86" y="470" class="row-label secondary-row">Heroes</text>
         </svg>
+          <span class="diagram-enlarge-hint" aria-hidden="true">↗ Tap to enlarge</span>
+        </button>
       </div>
       <figure class="media-frame payoff-media" data-fallback="Add assets/images/heroes-ofrenda.jpg">
         <img src="assets/images/heroes-ofrenda.jpg" alt="Jackie's ofrenda" />
@@ -258,7 +264,10 @@
       </div>
 
       <figure class="media-frame flowchart-frame compact-flowchart" data-fallback="Create in yEd: assets/images/heroes-choice-collapse.svg">
-        <img src="assets/images/heroes-choice-collapse.svg" alt="Original three choices collapsing into two quest outcomes" />
+        <button type="button" class="diagram-open flowchart-open" data-diagram-title="Original quest choices" aria-label="Enlarge Original quest choices" aria-haspopup="dialog">
+          <img src="assets/images/heroes-choice-collapse.svg" alt="Original three choices collapsing into two quest outcomes" />
+          <span class="diagram-enlarge-hint" aria-hidden="true">↗ Tap to enlarge</span>
+        </button>
       </figure>
 
       <div class="branch-principles">
@@ -268,7 +277,10 @@
       </div>
 
       <figure class="media-frame flowchart-frame redesign-flowchart" data-fallback="Create in yEd: assets/images/heroes-nowhere-branch.svg">
-        <img src="assets/images/heroes-nowhere-branch.svg" alt="Proposed Nowhere branch for Heroes" />
+        <button type="button" class="diagram-open flowchart-open" data-diagram-title="Proposed Nowhere branch" aria-label="Enlarge Proposed Nowhere branch" aria-haspopup="dialog">
+          <img src="assets/images/heroes-nowhere-branch.svg" alt="Proposed Nowhere branch for Heroes" />
+          <span class="diagram-enlarge-hint" aria-hidden="true">↗ Tap to enlarge</span>
+        </button>
       </figure>
 
       <div class="beat-grid">
@@ -321,5 +333,22 @@
   <footer>
     <p>Quest deconstruction and speculative redesign for portfolio purposes. Cyberpunk 2077 and related imagery are property of CD PROJEKT RED.</p>
   </footer>
+  <!-- Reuses the actual SVG/image, enlarged in-page without changing the URL. -->
+  <dialog id="diagramModal" class="diagram-modal" aria-labelledby="diagramModalTitle">
+    <div class="diagram-modal-panel">
+      <div class="diagram-modal-toolbar">
+        <h2 id="diagramModalTitle">Diagram</h2>
+        <div class="diagram-modal-controls">
+          <button type="button" id="diagramZoomOut" aria-label="Zoom out">−</button>
+          <button type="button" id="diagramZoomIn" aria-label="Zoom in">+</button>
+          <button type="button" id="diagramModalClose" class="diagram-modal-close" aria-label="Close enlarged diagram">✕</button>
+        </div>
+      </div>
+      <div id="diagramModalViewport" class="diagram-modal-viewport" tabindex="0" aria-label="Enlarged diagram; swipe sideways to explore">
+        <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>
+      </div>
+      <p class="diagram-modal-help">Swipe to explore the full diagram. Use + and − to change its size.</p>
+    </div>
+  </dialog>
 </body>
 </html>

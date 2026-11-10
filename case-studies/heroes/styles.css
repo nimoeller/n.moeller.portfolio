@@ -655,3 +655,134 @@ footer {
 @media (max-width: 900px) {
   .pacing-graph-wrap { overflow-x: auto; }
 }
+
+
+/* Mobile viewport guard: off-screen flying papers must not widen the page. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overscroll-behavior-x: none;
+  overflow-x: clip;
+}
+body { touch-action: pan-y pinch-zoom; }
+@supports not (overflow: clip) {
+  html, body { overflow-x: hidden; }
+}
+main, section, figure { min-width: 0; }
+img, video { max-width: 100%; }
+
+/* The preview always fits the screen. The full graph is available on tap. */
+.pacing-graph-wrap { min-width: 0; overflow-x: clip; }
+.pacing-graph-open { min-width: 0; }
+.pacing-graph-open .pacing-graph {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+}
+.diagram-open {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: zoom-in;
+  font: inherit;
+}
+.diagram-open:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+.flowchart-open img { display: block; width: 100%; max-width: 100%; height: auto; object-fit: contain; }
+.diagram-enlarge-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 6px 10px;
+  border: 1px solid rgba(244,227,189,.2);
+  border-radius: 3px;
+  background: rgba(27,23,19,.88);
+  color: #fff0da;
+  font: 700 .69rem/1.2 system-ui, sans-serif;
+  letter-spacing: .02em;
+  pointer-events: none;
+}
+.diagram-modal {
+  width: min(1400px, calc(100vw - 28px));
+  max-width: none;
+  height: min(900px, calc(100dvh - 28px));
+  max-height: none;
+  padding: 0;
+  border: 1px solid #90734b;
+  background: #e9dfcc;
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0,0,0,.65);
+  overflow: hidden;
+}
+.diagram-modal::backdrop { background: rgba(8,7,6,.87); }
+.diagram-modal-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.diagram-modal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: system-ui, sans-serif;
+}
+.diagram-modal-toolbar h2 { margin: 0; font: 700 clamp(.9rem,2vw,1.15rem)/1.3 system-ui,sans-serif; }
+.diagram-modal-controls { display: flex; gap: 7px; flex-shrink: 0; }
+.diagram-modal-controls button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(42,32,25,.25);
+  background: #f4ebdb;
+  color: #292018;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.diagram-modal-controls button:disabled { cursor: default; opacity: .35; }
+.diagram-modal-controls button:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.diagram-modal-viewport {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y pinch-zoom;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
+}
+.diagram-modal-canvas { width: max-content; max-width: none; min-width: 0; margin: 0 auto; }
+.diagram-modal-canvas > svg,
+.diagram-modal-canvas > img {
+  display: block;
+  width: var(--diagram-full-width, 940px);
+  max-width: none;
+  height: auto;
+}
+.diagram-modal-help {
+  margin: 0;
+  padding: 10px 15px;
+  border-top: 1px solid var(--line);
+  font: .76rem/1.4 system-ui, sans-serif;
+  color: var(--muted);
+}
+@media (max-width: 680px) {
+  .pacing-visual { padding: 12px; }
+  .diagram-modal { width: calc(100vw - 12px); height: calc(100dvh - 12px); }
+  .diagram-modal-viewport { padding: 10px; }
+  .diagram-modal-toolbar { padding: 8px 10px; }
+  .diagram-modal-toolbar h2 { max-width: 48vw; }
+  .diagram-modal-controls button { width: 36px; height: 36px; }
+}

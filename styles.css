@@ -2093,3 +2093,18 @@ html { scroll-padding-top: calc(var(--header-h) + 20px); }
   .hero-paper { filter: none !important; }
   .hero-backboard { opacity: 0 !important; }
 }
+
+
+/* Mobile viewport guard: off-screen flying papers must not widen the page. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overscroll-behavior-x: none;
+  overflow-x: clip;
+}
+body { touch-action: pan-y pinch-zoom; }
+@supports not (overflow: clip) {
+  html, body { overflow-x: hidden; }
+}
+main, section, figure { min-width: 0; }
+img, video { max-width: 100%; }
